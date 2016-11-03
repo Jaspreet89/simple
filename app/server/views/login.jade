@@ -1,0 +1,39 @@
+
+extends layout
+
+block content
+	.row
+		.col-sm-6
+			#login.simple_form
+				form(id='form-login', method='post',action='/anmeldung')
+					.form-group
+						label Username
+						input.form-control(type='text', id='user_tf', name='user')
+					.form-group
+						label Password
+						input.form-control(type='password', id='pass_tf', name='pass')
+					.controls
+						button(type='button',style='display:none;').btn.btn-default.button-rememember-me
+							span.glyphicon.glyphicon-ok.button-rememember-me-glyph
+							| Remember Me
+						button(type='submit').btn.btn-primary.button-sign-in
+							span.glyphicon.glyphicon-lock
+							| Sign In
+					.clearfix
+					hr
+					.btm-links
+						#forgot-password
+							a(href='#') Forgot Your Password?
+
+					.clearfix
+		.col-sm-6
+			include signup
+			include modals/alert
+			include modals/lost-password
+
+block scripts
+	script(src='/js/jquery.form.js')
+	script(src='/js/views/login.js')
+	script(src='/js/controllers/loginController.js')
+	script(src='/js/form-validators/loginValidator.js')
+	script(src='/js/form-validators/emailValidator.js')

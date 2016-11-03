@@ -1,0 +1,1085 @@
+extends layout
+
+block content
+
+    input(type='hidden', value= JSON.stringify(user.data))#userdata
+    script(language='javascript', type='text/javascript', src='/js/book.js')
+    .box
+        .row
+            #progress1.progress
+                .progress-bar(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100')
+                span.progress-type Anleitung
+                span.progress-completed 0%
+        .row
+            .row.step
+                #div1.col-md-2.activestep(onclick="javascript: resetActive(event, 0, 'step-1');")
+                    span.fa.fa-star
+                    p Erster Schritt
+                .col-md-2(onclick="javascript: resetActive(event, 20, 'step-2');")
+                    span.fa.fa-star
+                    p Speicherfunktion
+                .col-md-2(onclick="javascript: resetActive(event, 40, 'step-3');")
+                    span.fa.fa-star
+                    p Ladefunktion
+                .col-md-2(onclick="javascript: resetActive(event, 60, 'step-4');")
+                    span.fa.fa-star
+                    p Besonderer Wunsch
+                .col-md-2(onclick="javascript: resetActive(event, 80, 'step-5');")
+                    span.fa.fa-star
+                    p Zahlungsart
+                #last.col-md-2(onclick="javascript: resetActive(event, 100, 'step-6');")
+                    span.fa.fa-star
+                    p Reinigungsvorgang
+        #step-1.row.setup-content.step.activeStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Die Verfügbarkeit überpüfen
+                    h4
+                        | Geben Sie als erstes Ihren Wohnort ein um zu überprüfen,
+                        br
+                        | ob unser Service auch in Ihrem Wohnort verfügbar ist.
+        #step-2.row.setup-content.step.hiddenStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Die Speicherfunktion
+                    h4
+                        | Als registrierter Benutzer können Sie ihre letzte Bestellung speichern,
+                        br
+                        | damit Sie das Formular nicht immer mit den selben Daten ausfüllen müssen.
+        #step-3.row.setup-content.step.hiddenStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Die Ladefunktion
+                    h4
+                        | Um die Daten, welche bei der letzten Bestellung gespeichert wurden
+                        br
+                        | wieder aufzurufen, müssen Sie sich einloggen.
+                        br
+                        | Anschließend öffnet sich automatisch ein Fenster,
+                        br
+                        | bei dem Sie gefragt werden, ob Sie die zuletzt gespeicherten Daten
+                        br
+                        | wieder aufrufen möchten. Bestätigen Sie diese mit "Ja".
+        #step-4.row.setup-content.step.hiddenStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Besondere Wünsche/Hinweise
+                    h4
+                        | Im Formular bieten wir Ihnen unter dem Punkt "Anmerkung"
+                        br
+                        | extra die Möglichkeit, dass Sie uns einen Text schreiben können,
+                        br
+                        | um auf gewisse Sachen hinzuweisen.
+        #step-5.row.setup-content.step.hiddenStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Zahlungsart
+                    h4
+                        | Die Zahlung findet vor Ort statt.
+                        br
+                        | Sie haben die Möglichkeit Bar, mit EC-Karte oder MasterCard/Visa/AmericanCard zu zahlen.
+        #step-6.row.setup-content.step.hiddenStepInfo
+            .col-xs-12
+                .col-md-12.well.text-center
+                    h1 Ablauf der Reinigung
+                    h4
+                        | Egal bei welchem Wetter werden wir zu Ihrem
+                        br
+                        | gewünschten Ort und Zeit ihr Auto wunschgemäß reinigen.
+
+    script(type='text/javascript').
+        function resetActive(event, percent, step) {
+            $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+            $(".progress-completed").text(percent + "%");
+            $("div").each(function () {
+                if ($(this).hasClass("activestep")) {
+                    $(this).removeClass("activestep");
+                }
+            });
+            if (event.target.className == "col-md-2") {
+                $(event.target).addClass("activestep");
+            }
+            else {
+                $(event.target.parentNode).addClass("activestep");
+            }
+            hideSteps();
+            showCurrentStepInfo(step);
+        }
+        function hideSteps() {
+            $("div").each(function () {
+                if ($(this).hasClass("activeStepInfo")) {
+                    $(this).removeClass("activeStepInfo");
+                    $(this).addClass("hiddenStepInfo");
+                }
+            });
+        }
+        function showCurrentStepInfo(step) {
+            var id = "#" + step;
+            $(id).addClass("activeStepInfo");
+        }
+
+    form
+        div(style='background-color:#f0f1f3')
+            .row.book
+                .col-md-13
+                    h1 Fahrzeugtyp und Optionenauswahl
+                    button#loadBtn(style='display:none;').btn-primary Load Formular
+            .rowData(style='margin-left:40px;')
+                .row.book
+                    .col-md-3
+                        p.dick Marke wählen:
+                        select#brand(required='')
+                            option(value='')
+                            option(value='_AlfaRomeo') Alfa Romeo
+                            option(value='_AstonMartin') Aston Martin
+                            option(value='_Audi') Audi
+                            option(value='_Bentley') Bentley
+                            option(value='_BMW') BMW
+                            option(value='_Bugatti') Bugatti
+                            option(value='_Cadillac') Cadillac
+                            option(value='_Chevrolet') Chevrolet
+                            option(value='_Chrysler') Chrysler
+                            option(value='_Citroën') Citroën
+                            option(value='_Dacia') Dacia
+                            option(value='_Daihatsu') Daihatsu
+                            option(value='_Dodge') Dodge
+                            option(value='_Ferrari') Ferrari
+                            option(value='_Fiat') Fiat
+                            option(value='_Ford') Ford
+                            option(value='_Honda') Honda
+                            option(value='_Hummer') Hummer
+                            option(value='_Hyundai') Hyundai
+                            option(value='_Infiniti') Infiniti
+                            option(value='_Jaguar') Jaguar
+                            option(value='_Jeep') Jeep
+                            option(value='_Kia') Kia
+                            option(value='_Lamborghini') Lamborghini
+                            option(value='_Lancia') Lancia
+                            option(value='_LandRover') Land Rover
+                            option(value='_Lexus') Lexus
+                            option(value='_Lotus') Lotus
+                            option(value='_Maserati') Maserati
+                            option(value='_Maybach') Maybach
+                            option(value='_Mazda') Mazda
+                            option(value='_MercedesBenz') Mercedes-Benz
+                            option(value='_Mini') Mini
+                            option(value='_Mitsubishi') Mitsubishi
+                            option(value='_Nissan') Nissan
+                            option(value='_Opel') Opel
+                            option(value='_Peugeot') Peugeot
+                            option(value='_Porsche') Porsche
+                            option(value='_RangeRover') Range Rover
+                            option(value='_Renault') Renault
+                            option(value='_Rollsroyce') Rolls-royce
+                            option(value='_Saab') Saab
+                            option(value='_Seat') Seat
+                            option(value='_Skoda') Skoda
+                            option(value='_Smart') Smart
+                            option(value='_Ssangyong') Ssangyong
+                            option(value='_Subaru') Subaru
+                            option(value='_Suzuki') Suzuki
+                            option(value='_Tesla') Tesla
+                            option(value='_Toyota') Toyota
+                            option(value='_Volkswagen') Volkswagen
+                            option(value='_Volvo') Volvo
+                    .col-md-3
+                        .modell
+                            p.dick Modell Wählen:
+                            select#1._AlfaRomeo.submodel
+                                option(value='')
+                                option(value='M') MiTo *M*
+                                option(value='M') Giulietta *M*
+                                option(value='M') 145	*M*
+                                option(value='L') 146	*L*
+                                option(value='M') 147	*M*
+                                option(value='L') 155	*L*
+                                option(value='L') 156	*L*
+                                option(value='XL') 164	*XL*
+                                option(value='XL') 166	*XL*
+                                option(value='L') Brera *L*
+                                option(value='L') Spider *L*
+                                option(value='L') GT	*L*
+                                option(value='L') GTV	 *L*
+                                option(value='XXL') Giulia *XXL*
+                                option(value='L') 159	*L*
+                            select._AstonMartin.submodel
+                                option(value='')
+                                option(value='XXL') Rapide *XXL*
+                                option(value='S') Cygnet *S*
+                                option(value='XL') Vantage *XL*
+                                option(value='XL') DB9 *XL*
+                                option(value='XL') DB7 *XL*
+                                option(value='XL') DBS *XL*
+                                option(value='XL') Vanquish *XL*
+                            select._Audi.submodel
+                                option(value='')
+                                option(value='M') A1 *M*
+                                option(value='M') A2 *M*
+                                option(value='M') A3 *M*
+                                option(value='L') A4 *L*
+                                option(value='L') A5 *L*
+                                option(value='XL') A6 *XL*
+                                option(value='XL') A7 *XL*
+                                option(value='XL') A8 *XL*
+                                option(value='L') Q3 *L*
+                                option(value='XL') Q5 *XL*
+                                option(value='XXL') Q7 *XXL*
+                                option(value='M') TT *M*
+                                option(value='XXL') R8 *XXL*
+                            select._Bentley.submodel
+                                option(value='')
+                                option(value='XXL') Continental Flying Spur *XXL*
+                                option(value='XXL') Mulsanne *XXL*
+                                option(value='XXL') Brooklands *XXL*
+                                option(value='XXL') Continental GT *XXL*
+                                option(value='XXL') Azure *XXL*
+                            select._BMW.submodel
+                                option(value='')
+                                option(value='M') 1er *M*
+                                option(value='M') 2er *M*
+                                option(value='L') 3er *L*
+                                option(value='L') 4er *L*
+                                option(value='XL') 5er *XL*
+                                option(value='XL') 6er *XL*
+                                option(value='XL') 7er *XL*
+                                option(value='XL') 8er *XL*
+                                option(value='L') X1 *L*
+                                option(value='XL') X3 *XL*
+                                option(value='XXL') X5 *XXL*
+                                option(value='XXL') X6 *XXL*
+                                option(value='M') Z1 *M*
+                                option(value='M') Z3 *M*
+                                option(value='M') Z4 *M*
+                                option(value='XXL') Z8 *XXL*
+                            select._Bugatti.submodel
+                                option(value='')
+                                option(value='XXL') Veyron *XXL*
+                            select._Cadillac.submodel
+                                option(value='')
+                                option(value='L') ATS *L*
+                                option(value='L') CTS *L*
+                                option(value='XXL') Escalade *XXL*
+                                option(value='XL') SRX *XL*
+                                option(value='M') XLR *M*
+                                option(value='L') XTS *L*
+                                option(value='XL') Seville *XL*
+                            select._Chevrolet.submodel
+                                option(value='')
+                                option(value='S') Spark *S*
+                                option(value='M') Aveo *M*
+                                option(value='M') Cruze *M*
+                                option(value='L') Malibu *L*
+                                option(value='XL') Impala *XL*
+                                option(value='XL') Equinox *XL*
+                                option(value='XL') Captiva *XL*
+                                option(value='XL') Orlando *XL*
+                                option(value='XXL') Tahoe *XXL*
+                                option(value='XXL') Suburban *XXL*
+                                option(value='XXL') Montana *XXL*
+                                option(value='XXL') Colorado *XXL*
+                                option(value='XL') Corvette *XL*
+                                option(value='XXL') Blazer *XXL*
+                                option(value='XL') Camaro *XL*
+                                option(value='XL') Caprice *XL*
+                                option(value='S') Matiz *S*
+                                option(value='L') Nubira *L*
+                            select._Chrysler.submodel
+                                option(value='')
+                                option(value='XL') 300 *XL*
+                                option(value='L') 200 *L*
+                                option(value='M') Crossfire *M*
+                                option(value='L') PT Cruiser *L*
+                                option(value='XXL') Grand voyager *XXL*
+                                option(value='L') Neon *L*
+                                option(value='L') Sebring *L*
+                            select.submodel(class='_Citroën')
+                                option(value='')
+                                option(value='S') C1 *S*
+                                option(value='S') 2CV *S*
+                                option(value='S') C2 *S*
+                                option(value='M') C3 *M*
+                                option(value='L') DS3 *L*
+                                option(value='L') DS4 *L*
+                                option(value='XL') DS5 *XL*
+                                option(value='M') C4 *M*
+                                option(value='L') C5 *L*
+                                option(value='XL') C6 *XL*
+                                option(value='XXL') C8 *XXL*
+                                option(value='L') C3 Picasso *L*
+                                option(value='XL') Berlingo *XL*
+                                option(value='L') Xantia *L*
+                            select._Dacia.submodel
+                                option(value='')
+                                option(value='M') Sandero *M*
+                                option(value='M') Logan *M*
+                                option(value='XL') Lodgy *XL*
+                                option(value='XL') Duster *XL*
+                            select._Daihatsu.submodel
+                                option(value='')
+                                option(value='S') Cuore *S*
+                                option(value='M') Charade *M*
+                                option(value='S') Copen *S*
+                                option(value='S') Move *S*
+                                option(value='L') Terios *L*
+                            select._Dodge.submodel
+                                option(value='')
+                                option(value='L') Challenger *L*
+                                option(value='XL') Caliber *XL*
+                                option(value='L') Charger *L*
+                                option(value='XL') Dart *XL*
+                                option(value='XL') Dynasty *XL*
+                                option(value='XL') Magnum *XL*
+                                option(value='XL') Grand Caravan *XL*
+                                option(value='XL') Journey *XL*
+                                option(value='XXL') Viper *XXL*
+                                option(value='XXL') Ram *XXL*
+                            select._Ferrari.submodel
+                                option(value='')
+                                option(value='XXL') 458 Italia *XXL*
+                                option(value='XXL') 550 Maranello *XXL*
+                                option(value='XXL') 599 GTB Fiorano *XXL*
+                                option(value='XXL') 599 GTO *XXL*
+                                option(value='XXL') F355 *XXL*
+                                option(value='XXL') Enzo *XXL*
+                                option(value='XXL') F12 *XXL*
+                                option(value='XXL') F40 *XXL*
+                                option(value='XXL') F430 *XXL*
+                                option(value='XXL') F50 *XXL*
+                                option(value='XXL') FF *XXL*
+                                option(value='XXL') 512 *XXL*
+                                option(value='XXL') FXX *XXL*
+                                option(value='XXL') Testarossa *XXL*
+                                option(value='XXL') TR *XXL*
+                            select._Fiat.submodel
+                                option(value='')
+                                option(value='S') 500 *S*
+                                option(value='S') Panda *S*
+                                option(value='M') Punto *M*
+                                option(value='M') Bravo *M*
+                                option(value='S') Seicento *S*
+                                option(value='XXL') Ulysse *XXL*
+                                option(value='M') Albea *M*
+                                option(value='M') Barcetta *M*
+                                option(value='XL') Doblò *XL*
+                                option(value='XL') Ducato *XL*
+                                option(value='M') Grande Punto *M*
+                                option(value='M') Linea *M*
+                                option(value='M') Marea *M*
+                                option(value='XL') Multipla *XL*
+                                option(value='M') Regata *M*
+                                option(value='XL') Scudo *XL*
+                                option(value='XL') Sedici *XL*
+                                option(value='M') Stilo *M*
+                                option(value='M') Tempra *M*
+                                option(value='M') Tipo *M*
+                                option(value='S') Uno *S*
+                                option(value='L') Palio *L*
+                            select._Ford.submodel
+                                option(value='')
+                                option(value='S') KA *S*
+                                option(value='M') Fiesta *M*
+                                option(value='L') Focus *L*
+                                option(value='XL') Mondeo *XL*
+                                option(value='XL') Taurus *XL*
+                                option(value='L') B-MAX *L*
+                                option(value='XL') Tourneo *XL*
+                                option(value='XXL') Galaxy *XXL*
+                                option(value='XL') Kuga *XL*
+                                option(value='L') Cougar *L*
+                                option(value='XL') Courier *XL*
+                                option(value='XL') C-Max *XL*
+                                option(value='XXL') Explorer *XXL*
+                                option(value='M') Escort *M*
+                                option(value='S') Festiva *S*
+                                option(value='L') Focus Turnier *L*
+                                option(value='L') Fusion *L*
+                                option(value='XXL') Transit Connect *XXL*
+                                option(value='XXL') Taunus *XXL*
+                                option(value='L') Mustang *L*
+                                option(value='M') Puma *M*
+                                option(value='L') Probe *L*
+                                option(value='XXL') S-Max *XXL*
+                                option(value='XXL') Transit *XXL*
+                            select._Honda.submodel
+                                option(value='')
+                                option(value='S') Beat *S*
+                                option(value='S') City *S*
+                                option(value='M') Civic *M*
+                                option(value='L') Civic Tourer *L*
+                                option(value='M') Jazz *M*
+                                option(value='M') Fit *M*
+                                option(value='XL') Accord *XL*
+                                option(value='XL') CR-V *XL*
+                                option(value='M') CR-X *M*
+                                option(value='M') CRZ *M*
+                                option(value='M') HRV *M*
+                                option(value='M') Insight *M*
+                                option(value='S') Logo *S*
+                                option(value='XL') NSX *XL*
+                                option(value='L') Prelude *L*
+                                option(value='M') S2000 *M*
+                                option(value='XXL') Shuttle *XXL*
+                            select._Hummer.submodel
+                                option(value='')
+                                option(value='XXL') H2 *XXL*
+                                option(value='XXL') H3 *XXL*
+                            select._Hyundai.submodel
+                                option(value='')
+                                option(value='S') i10 *S*
+                                option(value='M') i20 *M*
+                                option(value='M') i30 *M*
+                                option(value='L') i40 *L*
+                                option(value='XL') i40 Kombi *XL*
+                                option(value='XL') Genesis *XL*
+                                option(value='M') Accent *M*
+                                option(value='S') Atos *S*
+                                option(value='L') Coupe *L*
+                                option(value='L') Elantra *L*
+                                option(value='XXL') Galloper *XXL*
+                                option(value='XL') Equus *XL*
+                                option(value='XL') ix35 *XL*
+                                option(value='S') Getz *S*
+                                option(value='XL') Santa Fe *XL*
+                                option(value='XXL') Grande Santa Fe *XXL*
+                                option(value='XXL') H1/H100/H200 *XXL*
+                                option(value='XXL') Terracan *XXL*
+                                option(value='XL') Tucson *XL*
+                            select._Infiniti.submodel
+                                option(value='')
+                                option(value='XL') EX *XL*
+                                option(value='XL') FX *XL*
+                                option(value='XL') JX *XL*
+                                option(value='L') M *L*
+                                option(value='L') Q50 *L*
+                                option(value='L') Q60 *L*
+                                option(value='L') Q70 *L*
+                                option(value='XL') QX50  *XL*
+                                option(value='XXL') QX70 *XXL*
+                            select._Jaguar.submodel
+                                option(value='')
+                                option(value='XL') XF *XL*
+                                option(value='XL') X351 *XL*
+                                option(value='XXL') XK *XXL*
+                                option(value='XL') XJ *XL*
+                                option(value='XXL') E-type *XXL*
+                                option(value='XXL') S-Type *XXL*
+                                option(value='L') X-Type *L*
+                                option(value='XL') XE *XL*
+                                option(value='XL') XKR *XL*
+                            select._Jeep.submodel
+                                option(value='')
+                                option(value='XL') Commander *XL*
+                                option(value='XXL') Grand Cherokee *XXL*
+                                option(value='XL') Liberty *XL*
+                                option(value='XL') Compass *XL*
+                                option(value='XL') Wrangler *XL*
+                                option(value='XXL') Patriot *XXL*
+                            select._Kia.submodel
+                                option(value='')
+                                option(value='S') Picanto *S*
+                                option(value='M') Rio *M*
+                                option(value='M') cee’d *M*
+                                option(value='L') Optima *L*
+                                option(value='XL') Carnival *XL*
+                                option(value='XL') Sportage *XL*
+                                option(value='XL') Sorento *XL*
+                                option(value='XL') Carens *XL*
+                                option(value='L') Shuma *L*
+                                option(value='M') Venga *M*
+                            select._Lamborghini.submodel
+                                option(value='')
+                                option(value='XXL') Gallardo *XXL*
+                                option(value='XXL') Countach *XXL*
+                                option(value='XXL') Diablo *XXL*
+                                option(value='XXL') Murciélago *XXL*
+                                option(value='XXL') Aventador *XXL*
+                                option(value='XXL') Reventon *XXL*
+                            select._Lancia.submodel
+                                option(value='')
+                                option(value='M') Ypsilon *M*
+                                option(value='M') Delta *M*
+                                option(value='L') Tehsis *L*
+                            select._LandRover.submodel
+                                option(value='')
+                                option(value='XL') Discovery *XL*
+                                option(value='XXL') Freelander *XXL*
+                                option(value='XXL') Defender *XXL*
+                            select._Lexus.submodel
+                                option(value='')
+                                option(value='M') CT *M*
+                                option(value='L') IS *L*
+                                option(value='XL') GS *XL*
+                                option(value='XL') LS *XL*
+                                option(value='L') SC *L*
+                            select._Lotus.submodel
+                                option(value='')
+                                option(value='M') Elise *M*
+                                option(value='M') Elite *M*
+                                option(value='M') Evora *M*
+                                option(value='M') Exige *M*
+                                option(value='M') Super Seven  *M*
+                                option(value='L') Esprit *L*
+                            select._Maserati.submodel
+                                option(value='')
+                                option(value='XXL') Quattroporte *XXL*
+                                option(value='XXL') GranTurismo *XXL*
+                            select._Maybach.submodel
+                                option(value='')
+                                option(value='XXL') 57 *XXL*
+                                option(value='XXL') 62 *XXL*
+                            select._Mazda.submodel
+                                option(value='')
+                                option(value='M') Mazda2 *M*
+                                option(value='M') Mazda3 *M*
+                                option(value='L') Mazda6 *L*
+                                option(value='XL') Mazda5 *XL*
+                                option(value='M') MX-5 *M*
+                                option(value='L') CX5 *L*
+                                option(value='XL') CX7 *XL*
+                                option(value='XXL') CX9 *XXL*
+                                option(value='L') Demio *L*
+                                option(value='L') RX 8  *L*
+                            select._MercedesBenz.submodel
+                                option(value='')
+                                option(value='M') A *M*
+                                option(value='M') B *M*
+                                option(value='L') C *L*
+                                option(value='XL') CL *XL*
+                                option(value='XL') CLS *XL*
+                                option(value='L') CLA *L*
+                                option(value='L') CLK *L*
+                                option(value='XL') E *XL*
+                                option(value='XL') G *XL*
+                                option(value='XXL') GL *XXL*
+                                option(value='L') GLA *L*
+                                option(value='XL') GLK *XL*
+                                option(value='XXL') ML *XXL*
+                                option(value='XL') S *XL*
+                                option(value='L') SL *L*
+                                option(value='M') SLK *M*
+                                option(value='XXL') SLS *XXL*
+                                option(value='XXL') SLR *XXL*
+                                option(value='XXL') R *XXL*
+                                option(value='XXL') Sprinter *XXL*
+                                option(value='XXL') Vaneo *XXL*
+                                option(value='XXL') Vario *XXL*
+                                option(value='XXL') Viano *XXL*
+                                option(value='XXL') Vito *XXL*
+                            select._Mini.submodel
+                                option(value='')
+                                option(value='M') Mini	*M*
+                                option(value='L') Clubman	*L*
+                                option(value='L') Countryman	*L*
+                                option(value='M') Paceman	*m*
+                                option(value='M') Coupe/Roadster	*M*
+                            select._Mitsubishi.submodel
+                                option(value='')
+                                option(value='S') i MiEV *S*
+                                option(value='L') Carisma *L*
+                                option(value='M') Colt *M*
+                                option(value='M') Lancer *M*
+                                option(value='XXL') Grandis *XXL*
+                                option(value='XXL') Galloper *XXL*
+                                option(value='L') Galant *L*
+                                option(value='M') Space Star *M*
+                                option(value='XL') Outlander *XL*
+                                option(value='XXL') Pajero *XXL*
+                                option(value='XXL') L200 *XXL*
+                                option(value='L') Eclips *L*
+                            select._Nissan.submodel
+                                option(value='')
+                                option(value='M') Almera *M*
+                                option(value='L') Almera Tino *L*
+                                option(value='S') Pixo *S*
+                                option(value='S') Micra *S*
+                                option(value='M') Tiida *M*
+                                option(value='XL') Maxima *XL*
+                                option(value='XL') Laurel *XL*
+                                option(value='XL') Qashqai *XL*
+                                option(value='XXL') Navara *XXL*
+                                option(value='M') Leaf *M*
+                                option(value='L') Note *L*
+                                option(value='XL') Juke *XL*
+                                option(value='L') 350Z *L*
+                                option(value='L') 370Z *L*
+                                option(value='XXL') GTR *XXL*
+                                option(value='XXL') Vanette *XXL*
+                                option(value='XL') Kubistar *XL*
+                                option(value='XL') Murano *XL*
+                                option(value='XXL') Pathfinder *XXL*
+                                option(value='XXL') Patrol *XXL*
+                                option(value='XL') Terrano *XL*
+                                option(value='XXL') X-Trail *XXL*
+                            select._Opel.submodel
+                                option(value='')
+                                option(value='S') Adam *S*
+                                option(value='S') Agila *S*
+                                option(value='M') Ampera *M*
+                                option(value='XL') Antara *XL*
+                                option(value='S') Corsa *S*
+                                option(value='M') Astra *M*
+                                option(value='L') Insignia *L*
+                                option(value='XXL') Movano *XXL*
+                                option(value='XL') Combo *XL*
+                                option(value='XL') Mokka *XL*
+                                option(value='XL') Meriva *XL*
+                                option(value='XL') Zafira *XL*
+                                option(value='M') Agila *M*
+                                option(value='XL') Frontera *XL*
+                                option(value='XL') Omega *XL*
+                                option(value='XL') Signum *XL*
+                                option(value='M') Speedster *M*
+                                option(value='XXL') Sintra *XXL*
+                                option(value='S') Tigra *S*
+                                option(value='L') Vectra *L*
+                            select._Peugeot.submodel
+                                option(value='')
+                                option(value='S') 106 *S*
+                                option(value='S') 107 *S*
+                                option(value='S') 205 *S*
+                                option(value='M') 206 *M*
+                                option(value='M') 207 *M*
+                                option(value='M') 208 *M*
+                                option(value='M') 3008 *M*
+                                option(value='M') 301 *M*
+                                option(value='M') 306 *M*
+                                option(value='M') 307 *M*
+                                option(value='M') 308 *M*
+                                option(value='M') 309 *M*
+                                option(value='M') 4007 *M*
+                                option(value='M') 401 *M*
+                                option(value='M') 405 *M*
+                                option(value='L') 406 *L*
+                                option(value='L') 407 *L*
+                                option(value='XL') 5008 *XL*
+                                option(value='L') 508 *L*
+                                option(value='L') 601 *L*
+                                option(value='L') 607 *L*
+                                option(value='XL') Boxer *XL*
+                                option(value='XL') Expert *XL*
+                                option(value='XL') Partner *XL*
+                            select._Porsche.submodel
+                                option(value='')
+                                option(value='L') 911 *L*
+                                option(value='M') Boxter *M*
+                                option(value='XXL') Carrera GT *XXL*
+                                option(value='XXL') Cayenne *XXL*
+                                option(value='M') Cayman *M*
+                                option(value='XL') Panamera *XL*
+                            select._RangeRover.submodel
+                                option(value='')
+                                option(value='XL') Evoque *XL*
+                                option(value='XXL') HSE *XXL*
+                                option(value='XXL') Sport *XXL*
+                            select._Renault.submodel
+                                option(value='')
+                                option(value='XL') Avantime *XL*
+                                option(value='S') Clio *S*
+                                option(value='XL') Duster *XL*
+                                option(value='XL') Espace *XL*
+                                option(value='M') Fuego *M*
+                                option(value='XL') Kangoo *XL*
+                                option(value='L') Koleos *L*
+                                option(value='L') Laguna *L*
+                                option(value='L') Latitude *L*
+                                option(value='M') Logan *M*
+                                option(value='XXL') Master *XXL*
+                                option(value='M') Mégane *M*
+                                option(value='XL') Mégane Grand Scénic *XL*
+                                option(value='L') Mégane Grandtour *L*
+                                option(value='M') Modus *M*
+                                option(value='L') Safrane *L*
+                                option(value='M') Sandero *M*
+                                option(value='XL') Scénic *XL*
+                                option(value='S') Spider *S*
+                                option(value='XL') Trafic *XL*
+                                option(value='S') Twingo *S*
+                                option(value='S') Twizy *S*
+                                option(value='L') Vel Satis *L*
+                                option(value='M') Wind *M*
+                                option(value='M') Zoe *M*
+                            select._Rollsroyce.submodel
+                                option(value='')
+                                option(value='XXL') Ghost *XXL*
+                                option(value='XXL') Phantom *XXL*
+                                option(value='XXL') 10 hp *XXL*
+                            select._Saab.submodel
+                                option(value='')
+                                option(value='L') 9-3 *L*
+                                option(value='XL') 9-4X *XL*
+                                option(value='L') 9-5 *L*
+                                option(value='XL') 9-7X *XL*
+                            select._Seat.submodel
+                                option(value='')
+                                option(value='L') Alhambra *L*
+                                option(value='M') Altea *M*
+                                option(value='S') Arosa *S*
+                                option(value='L') Exeo *L*
+                                option(value='M') Ibiza *M*
+                                option(value='M') León *M*
+                                option(value='S') Mii *S*
+                                option(value='M') Toledo *M*
+                            select._Skoda.submodel
+                                option(value='')
+                                option(value='S') Citigo *S*
+                                option(value='M') Fabia *M*
+                                option(value='M') Felicia *M*
+                                option(value='M') Octavia *M*
+                                option(value='M') Rapid *M*
+                                option(value='L') Roomster *L*
+                                option(value='L') Superb *L*
+                                option(value='XL') Yeti *XL*
+                            select._Smart.submodel
+                                option(value='')
+                                option(value='S') Crosstown *S*
+                                option(value='M') Forfour *M*
+                                option(value='S') Formore *S*
+                                option(value='S') Fortwo *S*
+                                option(value='S') Roadster *S*
+                            select._Ssangyong.submodel
+                                option(value='')
+                                option(value='XL') Istana *XL*
+                                option(value='M') Korando *M*
+                                option(value='XL') Kyron *XL*
+                                option(value='L') Musso *L*
+                                option(value='M') New Actyon *M*
+                                option(value='XL') Rexton *XL*
+                                option(value='XL') Rodius *XL*
+                            select._Subaru.submodel
+                                option(value='')
+                                option(value='L') Alcyone SVX *L*
+                                option(value='M') BRZ *M*
+                                option(value='M') FF-1 Star *M*
+                                option(value='XL') Forester *XL*
+                                option(value='L') Impreza *L*
+                                option(value='L') Legacy *L*
+                                option(value='L') Outback *L*
+                                option(value='L') Tribeca *L*
+                            select._Suzuki.submodel
+                                option(value='')
+                                option(value='M') Baleno *M*
+                                option(value='M') Ertiga *M*
+                                option(value='XL') Escudo *XL*
+                                option(value='M') Grand Vitara *M*
+                                option(value='XL') Ignis *XL*
+                                option(value='M') Jimny *M*
+                                option(value='S') Splash *S*
+                                option(value='S') Swift *S*
+                                option(value='M') SX4 *M*
+                                option(value='M') XL-7 *M*
+                            select._Tesla.submodel
+                                option(value='')
+                                option(value='XXL') Model X *XXL*
+                                option(value='XXL') Roadster *XXL*
+                            select._Toyota.submodel
+                                option(value='')
+                                option(value='XL') 4Runner *XL*
+                                option(value='L') Allex *L*
+                                option(value='M') Allion *M*
+                                option(value='L') Alphard *L*
+                                option(value='L') Aurion *L*
+                                option(value='M') Auris *M*
+                                option(value='L') Avalon *L*
+                                option(value='M') Avensis *M*
+                                option(value='S') Aygo *S*
+                                option(value='L') Brevis *L*
+                                option(value='M') Caldina *M*
+                                option(value='S') Cami *S*
+                                option(value='M') Camry *M*
+                                option(value='L') Camry Solara *L*
+                                option(value='M') Carina *M*
+                                option(value='M') Celica *M*
+                                option(value='L') Century *L*
+                                option(value='M') Chaser *M*
+                                option(value='M') Corolla *M*
+                                option(value='XL') Corolla Spacio *XL*
+                                option(value='M') Corolla Verso *M*
+                                option(value='M') Corona *M*
+                                option(value='L') Cresta *L*
+                                option(value='L') Crown *L*
+                                option(value='L') Crown Majesta *L*
+                                option(value='M') Cynos *M*
+                                option(value='S') Duet *S*
+                                option(value='S') eCom *S*
+                                option(value='L') Estima *L*
+                                option(value='M') Fine *M*
+                                option(value='XL') FJ Cruiser *XL*
+                                option(value='M') FT-HS *M*
+                                option(value='L') Granvia *L*
+                                option(value='M') Harrier *M*
+                                option(value='L') Hiace *L*
+                                option(value='XL') Highlander *XL*
+                                option(value='XL') Hilux *XL*
+                                option(value='M') Hybrid X *M*
+                                option(value='XL') Ipsum *XL*
+                                option(value='S') iQ *S*
+                                option(value='L') Isis *L*
+                                option(value='S') i-unit *S*
+                                option(value='XL') Land Cruiser *XL*
+                                option(value='XL') LiteAce *XL*
+                                option(value='L') Mark *L*
+                                option(value='M') MR2 *M*
+                                option(value='M') Noah *M*
+                                option(value='L') Opa *L*
+                                option(value='S') Passo *S*
+                                option(value='M') Picnic *M*
+                                option(value='S') PM *S*
+                                option(value='M') Porte *M*
+                                option(value='L') Premio *L*
+                                option(value='L') Previa *L*
+                                option(value='M') Prius *M*
+                                option(value='M') Probox *M*
+                                option(value='M') Ractis *M*
+                                option(value='L*') Raum *L*
+                                option(value='XL') RAV4 *XL*
+                                option(value='M') Rush *M*
+                                option(value='XL') Sequoia *XL*
+                                option(value='XL') Sienna *XL*
+                                option(value='M') Sienta *M*
+                                option(value='L') Soarer *L*
+                                option(value='L') Sprinter Trueno *L*
+                                option(value='M') Starlet *M*
+                                option(value='XL') Succeed *XL*
+                                option(value='M') Supra *M*
+                                option(value='XL') Tacoma *XL*
+                                option(value='XL') Tarago *XL*
+                                option(value='XL') Town Ace *XL*
+                                option(value='XL') Tundra *XL*
+                                option(value='M') Urban Cruiser *M*
+                                option(value='L') Venza *L*
+                                option(value='L') Verossa *L*
+                                option(value='M') Verso *M*
+                                option(value='M') Vista *M*
+                                option(value='M') WiLL *M*
+                                option(value='XL') WISH *XL*
+                                option(value='M') Yaris *M*
+                            select._Volkswagen.submodel
+                                option(value='')
+                                option(value='XXL') Amarok *XXL*
+                                option(value='XL') Caddy *XL*
+                                option(value='XXL') Crafter *XXL*
+                                option(value='L') Eos *L*
+                                option(value='S') Fox *S*
+                                option(value='M') Golf *M*
+                                option(value='M') Jetta *M*
+                                option(value='M') Käfer *M*
+                                option(value='S') Lupo *S*
+                                option(value='XXL') Multivan *XXL*
+                                option(value='M') New Beetle *M*
+                                option(value='L') Passat *L*
+                                option(value='XL') Phaeton *XL*
+                                option(value='S') Polo *S*
+                                option(value='XL') Sharan *XL*
+                                option(value='M') Scirocco *M*
+                                option(value='XXL') T *XXL*
+                                option(value='XL') Tiguan *XL*
+                                option(value='XXL') Touareg *XXL*
+                                option(value='XL') Touran *XL*
+                                option(value='S') UP! *S*
+                                option(value='L') Variant *L*
+                                option(value='M') VII *M*
+                                option(value='M') Bora *M*
+                            select._Volvo.submodel
+                                option(value='')
+                                option(value='M') 440/460 *M*
+                                option(value='XL') 700er *XL*
+                                option(value='XL') 800er *XL*
+                                option(value='XL') 900er *XL*
+                                option(value='M') C30 *M*
+                                option(value='L') C70 *L*
+                                option(value='M') S40 *M*
+                                option(value='M') S60 *M*
+                                option(value='L') S70 *L*
+                                option(value='L') S80 *L*
+                                option(value='L') S90 *L*
+                                option(value='M') V40 *M*
+                                option(value='L') V50 *L*
+                                option(value='L') V60 *L*
+                                option(value='L') V70 *L*
+                                option(value='XL') XC60 *XL*
+                                option(value='XL') XC70 *XL*
+                                option(value='XL') XC90 *XL*
+                .col-md-3(style='float:right; margin-top:-50px')
+                    .optionen
+                        ul.list-unstyled
+                            li
+                                input#a(name='anzeige', type='checkbox', value='Intensiv-Außenreinigung per Hand')
+                                label(for='a')
+                                    | Intensiv-Außenreinigung per Hand (€)
+                                    p#_a
+                            li
+                                input#b(name='anzeige', type='checkbox', value='Intensiv-Innenreinigung')
+                                label(for='b')
+                                    | Intensiv-Innenreinigung (€)
+                                    p#_b
+                            li
+                                input#c(name='anzeige', type='checkbox', value='Polieren')
+                                label(for='c')
+                                    | Polieren (€)
+                                    p#_c
+                            li
+                                input#d(name='anzeige', type='checkbox', value='Lederpflege')
+                                label(for='d')
+                                    | Lederpflege (€)
+                                    p#_d
+                            li
+                                input#e(name='anzeige', type='checkbox', value='Sitzpolster shampoonieren')
+                                label(for='e')
+                                    | Sitzpolster shampoonieren (€)
+                                    p#_e
+                            li
+                                input#f(name='anzeige', type='checkbox', value='Kunststoffpflege Außenteile')
+                                label(for='f')
+                                    | Kunststoffpflege Außenteile (€)
+                                    p#_f
+                            li
+                                input#g(name='anzeige', type='checkbox', value='Komplettaufbereitung')
+                                label(for='g')
+                                    | Komplettaufbereitung (€)
+                                    p#_g
+                            li
+                                h3
+                                    strong
+                                        | Gesamt:
+                                        p#_gesamt(value='0') 0.00€
+                br
+                br
+                br
+                br
+                .row.book
+                    .col-md-3
+                        ul.list-unstyled
+                            li.dick Fahrzeugfarbe: *
+                            li
+                                input#farbe(type='text', name='farbe', required='')
+                    .col-md-3
+                        ul.list-unstyled
+                            li.dick Fahrzeugkennzeichen: *
+                            li
+                                input#kennzeichen(type='text', name='kennzeichen', required='')
+                br
+                br
+                br
+                br
+        hr
+        .row.book
+            .col-md-12
+                h1 Einsatzort und Zeit
+            .col-md-3
+                ul
+                    li.dick Ort der Reinigung*
+                    li
+                        input#ort(type='text', name='ort', required='')
+            .col-md-3
+                ul
+                    li.dick PLZ*
+                    li
+                        input#plz(type='text', name='plz', required='')
+        .row.book
+            .col-md-3
+                ul
+                    li.dick Straße*
+                    li
+                        input#strasse(type='text', name='strasse', required='')
+            .col-md-3
+                ul
+                    li.dick Hausnummer*
+                    li
+                        input#hausnr(type='text', name='hausnr', required='')
+            .col-md-3
+                ul
+                    li.dick Telefonnummer*
+                    li
+                        input#telefon(type='text', name='telefon', required='')
+        .row.book
+            .col-md-8
+                ul
+                    li.dick Anmerkung
+                    li
+                        textarea#anmerkung(name='anmerkung', placeholder='Irgendwelche speziellen Wünsche?', cols='60', rows='10')
+            br
+            br
+            br
+            br
+            .col-md-4
+                ul.p-x-5
+                    li.dick Ist ein regengeschützter Abstellplatz vorhanden?*
+                    li
+                        input(type='radio', name='abstellplatz', value='ja', required='')
+                        | Ja
+                    li
+                        input(type='radio', name='abstellplatz', value='nein')
+                        | Nein
+            br
+            br
+            br
+            br
+            br
+            .col-md-2
+                ul
+                    li.dick Datum*
+                    li
+                        input#datepicker(type='text', required='')
+            .col-md-1
+                ul
+                    li.dick Uhrzeit:*
+                    li
+                        select#zeit(required='')
+                            option 07:00 - 10:00 Uhr
+                            option 08:00 - 11:00 Uhr
+                            option 09:00 - 12:00 Uhr
+                            option 10:00 - 13:00 Uhr
+                            option 11:00 - 14:00 Uhr
+                            option 12:00 - 15:00 Uhr
+                            option 13:00 - 16:00 Uhr
+                            option 14:00 - 17:00 Uhr
+                            option 15:00 - 18:00 Uhr
+                            option 16:00 - 19:00 Uhr
+        hr
+        div(style='background-color:#f0f1f3')
+            .row.book
+                .col-md-12
+                    h1 Rechnungsadresse
+                .col-md-3
+                    ul
+                        li.dick Vorname*
+                        li
+                            input#vorname(type='text', name='vorname', required='')
+                .col-md-3
+                    ul
+                        li.dick Nachname*
+                        li
+                            input#nachname(type='text', name='nachname', required='')
+                .col-md-3
+                    ul
+                        li.dick Firma
+                        li
+                            input#firma(type='text', name='Firma')
+                .col-md-3
+                    ul
+                        li.dick E-Mail*
+                        li
+                            input#email(type='text', name='email', required='')
+                .col-md-12
+                .col-md-7(style='margin-top:50px')
+                    ul
+                        li.dick Zahlungsart: *
+                        li
+                            select#zahlungsart(required='')
+                                option Bar vor Ort
+                                option PayPal
+                                option Vor Ort mit EC/MasterCard/Visa/AmericanCard
+                        li(style='margin-top:40px')
+                            | Nach Ihrer Bestellung wird innerhalb von 15-30 min. eine Rechnung an Ihre Email versendet.
+                        li
+                            input#_agb(type='checkbox', name='haveTo', value='ja', required='')
+                            strong Ja
+                            | , ich akzeptiere die AGBs
+                        li
+                            | Um zu den AGBs zu gelangen,
+                            a(href='agb.html') klick hier.
+                        li(style='margin-top:20px')
+                            input(type='submit', value='kostenpflichtig buchen', onclick='fetch()')
+                .col-md-5(style='margin-top:50px')
+                    h2 Gesamtpreis beträgt:
+                    h2.outputPrice 0.00€

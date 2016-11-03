@@ -1,0 +1,79 @@
+extends layout
+block content
+    script(src='/js/jspdf.js')
+    .row
+        .col-sm-6
+            form#new_company_request.simple_form(action='/contact', accept-charset='UTF-8', data-remote='true', method='post')
+                #company_request_gender.field.genders
+                    label(for='company_request_gender') Anrede
+                    input#company_request_gender_male(value='male', name='gender', type='radio')
+                    label.inline(for='company_request_gender') Herr
+                    input#company_request_gender_female(value='female', name='gender', type='radio')
+                    label.inline(for='company_request_gender') Frau
+                .field
+                    .left
+                        input#company_request_name(placeholder='Vor- und Nachname des Ansprechpartners', name='name', type='text')
+                    .right
+                        input#company_request_email(placeholder='E-Mail-Adresse', name='email', type='text')
+                    br.clear
+                .field
+                    .left
+                        input#company_request_phone(placeholder='Telefonnummer', name='phone', type='text')
+                    .right
+                        input#company_request_company(placeholder='Unternehmen', name='company', type='text')
+                    br.clear
+                .field
+                    input#company_request_position(placeholder='Position des Ansprechpartners im Unternehmen', name='position', type='text')
+                .field
+                    .left
+                        input#company_request_city(placeholder='Standort/Standorte', name='city', type='text')
+                    .right
+                        input#company_request_zip(placeholder='PLZ', name='zip', type='text')
+                    br.clear
+                .field
+                    .left
+                        input#company_request_cars_count(placeholder='Anzahl Fahrzeuge', name='cars_count', type='text')
+                    .right
+                        input#company_request_employees_count(placeholder='Anzahl Mitarbeiter', name='employees_count', type='text')
+                    br.clear
+                .field
+                    | Voraussichtliche Anzahl der Reinigungen
+                    input#company_request_cleanings_count(placeholder='geschätzte Anzahl', name='cleanings_count', type='text')
+                .field
+                    input#company_request_monthly_true(value='true', checked='checked', name='monthly', type='radio')
+                    label.inline(for='monthly_true') pro Monat
+                    input#company_request_monthly_false.loffset(value='false', name='monthly', type='radio')
+                    label.inline(for='monthly_false') pro Jahr
+                .field
+                    | Weitere Wünsche
+                    textarea#company_request_comment(name='comment')
+                .actions
+                    input.button(name='commit', value='Anfrage absenden', type='submit')
+        .col-sm-6
+            script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
+            div(style='overflow:hidden;')
+                #gmap_canvas(style='min-height:550px;margin-top:5%;')
+                style.
+                    #gmap_canvas img {
+                        max-width: none !important;
+                        background: none !important;
+
+                    }
+            script(type='text/javascript').
+                function init_map() {
+                    var myOptions = {
+                        zoom: 12,
+                        center: new google.maps.LatLng(50.00882, 8.20846000000006),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                    marker = new google.maps.Marker({
+                        map: map,
+                        position: new google.maps.LatLng(50.00882, 8.20846000000006)
+                    });
+                    infowindow = new google.maps.InfoWindow({content: '<strong></strong><br>Elsa-Brändström-Straße 51B, Gonsenheim 55124 Mainz Germany<br> Frankfurt am Main<br>'});
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.open(map, marker);
+                    });
+                    infowindow.open(map, marker);
+                }google.maps.event.addDomListener(window, 'load', init_map);

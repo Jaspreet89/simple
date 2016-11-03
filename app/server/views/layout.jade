@@ -1,0 +1,151 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title Simple Wash
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/smoothness/jquery-ui.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js')
+        script(src='/js/notify.js')
+        link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet', href='/css/glyphicon.css')
+        script.
+            function ErrorMsg(message) {
+                notif({
+                    type: "error",
+                    msg: message,
+                    position: "center",
+                    width: 500,
+                    height: 60,
+                    autohide: true
+                });
+            }
+            function SuccessMsg(message) {
+                notif({
+                    type: "success",
+                    msg: message,
+                    position: "center",
+                    width: 500,
+                    height: 60,
+                    autohide: true
+                });
+            }
+
+
+
+            function attemptLogout(url) {
+                var that = this;
+                var location = document.URL;
+                $.ajax({
+                    url: "/logout",
+                    type: "POST",
+                    data: {logout: true},
+                    success: function (data) {
+                        window.location = url;
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.responseText + ' :: ' + jqXHR.statusText);
+                    }
+                });
+            }
+            $(document).ready(function () {
+                $('#maincontainer').css("min-height", $(window).height() - 155);
+            });
+
+            $(function () {
+                if ($('#userId').val() != "") {
+                    $('#dropdownmenu').show();
+                    $('#btn-logout').click(function () {
+                        $('#dropdownmenu').hide();
+                        attemptLogout('/');
+
+                    });
+                }
+
+
+                // Stick the #nav to the top of the window
+                var nav = $('#header');
+                var navHomeY = nav.offset().top;
+                var isFixed = false;
+                var $w = $(window);
+                $w.scroll(function () {
+                    var scrollTop = $w.scrollTop();
+                    var shouldBeFixed = scrollTop > navHomeY;
+                    if (shouldBeFixed && !isFixed) {
+                        nav.css({
+                            position: 'fixed',
+                            top: 0,
+                            left: nav.offset().left,
+                            width: nav.width()
+                        });
+                        isFixed = true;
+                    }
+                    else if (!shouldBeFixed && isFixed) {
+                        nav.css({
+                            position: 'static'
+                        });
+                        isFixed = false;
+                    }
+                });
+            });
+
+    body.wide_layout
+        #topline
+            div
+                a#logo_link.left(href='#')
+                    #logo
+                .item(style='margin-left:5%')
+                    a#login_link.small.bold.black(href='/anmeldung') Anmelden / Registrieren
+                #hotline.item.border
+                    .small.comment Buchungs- und Servicehotline:
+                    .bigger.bold.hotline.visible
+                        a(href='#') 0173/7682942
+                    // <div class="small comment">Mo.-Fr.: from-to Uhr</div>
+        #header
+            #menu
+                .item.bigger
+                    a(href='/') Home
+                .item.bigger
+                    a(href='/book') Jetzt Buchen
+
+                .item.bigger
+                    a(href='/contact') Kontakt
+                #dropdownmenu(style='display:none;').item.bigger.dropdown
+                    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                        | Account
+                        span.caret
+                    ul.dropdown-menu
+                        li
+                            a(href='/accountSetting',style='color:black') Setting
+                        li
+                            a#btn-logout(href='#',style='color:black') Logout
+
+        // MAIN CONTENT HERE
+        main
+            #maincontainer
+                // preset form values if we receive a userdata object //
+                - user = typeof(udata) != 'undefined' ? udata : { }
+                // store the userId on the client side in a hidden input field //
+                input(type='hidden', value= user._id)#userId
+                block scripts
+                block content
+
+        #ekomi
+            #stars.small
+                i.fa.fa-star
+                i.fa.fa-star
+                i.fa.fa-star
+                i.fa.fa-star-half-o
+                i.fa.fa-star-o
+            .comment.small 3.5 von 5
+            .small
+                a.dark_comment.red(href='/contact')
+                    b Kontakt
+            .small
+                a.comment.black(target='_blank', href='#') Bewertungen anschauen
+        footer
+            a(href='/impressum',style='float:left;margin-left:1%;color: white') Impressum
+            a(href='/about',style='float:left;margin-left:1%;color: white') AGB
+            | Simple Wash Copyright © 2016

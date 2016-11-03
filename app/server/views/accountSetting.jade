@@ -1,0 +1,15 @@
+
+extends layout
+
+block content
+
+
+	include account
+	include modals/alert
+	include modals/confirm
+
+block scripts
+	script(src='/js/jquery.form.js')
+	script(src='/js/views/home.js')
+	script(src='/js/controllers/homeController.js')
+	script(src='/js/form-validators/accountValidator.js')

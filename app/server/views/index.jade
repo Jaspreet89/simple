@@ -1,0 +1,144 @@
+extends layout
+
+block content
+    #map
+    .content
+        .homepage
+            .video-container
+                .title-container
+                    .headline
+                        h1 Simple Wash
+                    .description
+                        #section_main.js_section_main.section
+
+                            #subtitle.bigger Professionelle Autoreinigung vor Ort
+                            #address_fields.field
+                                input#street(name='street', data-geo='route', placeholder='Straße', type='text', required='')
+                                input#house(name='house', data-geo='street_number', placeholder='Nr.', type='text', required='')
+                                input#zip(name='zip', data-geo='postal_code', placeholder='Postleitzahl', type='text', required='')
+                                input#city(name='city', data-geo='locality', placeholder='Ort', type='text', required='')
+                        a#check_availability.thick.button(href='javascript:ReachabilityCalculator();') Jetzt Verfügbarkeit prüfen
+                video.fillWidth(autoplay='', loop='')
+                    source(src='http://blacktie.co/demo/appi/video/appi.mp4', type='video/mp4')
+                    |                 Your browser does not support the video tag. I suggest you upgrade your browser.
+
+
+block scripts
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
+
+    script.
+        $(document).ready(function () {
+            // Resive video
+            scaleVideoContainer();
+            initBannerVideoSize('.video-container video');
+            $(window).on('resize', function () {
+                scaleVideoContainer();
+                scaleBannerVideoSize('.video-container video');
+            });
+        });
+        function scaleVideoContainer() {
+            var height = $(window).height();
+            var unitHeight = parseInt(height) + 'px';
+            $('.homepage').css('height', unitHeight);
+        }
+        function initBannerVideoSize(element) {
+            $(element).each(function () {
+                $(this).data('height', $(this).height());
+                $(this).data('width', $(this).width());
+            });
+            scaleBannerVideoSize(element);
+        }
+        function scaleBannerVideoSize(element) {
+            var windowWidth = $(window).width(),
+                    windowHeight = $(window).height(),
+                    videoWidth,
+                    videoHeight;
+            $(element).each(function () {
+                var videoAspectRatio = $(this).data('height') / $(this).data('width'),
+                        windowAspectRatio = windowHeight / windowWidth;
+                if (windowAspectRatio > (2 * videoAspectRatio)) {
+                    videoHeight = windowHeight;
+                    videoWidth = videoHeight / videoAspectRatio;
+                    $(this).css({'margin-top': 0, 'margin-left': -(videoWidth - windowWidth) / 2 + 'px'});
+                    $(this).width(videoWidth).height(videoHeight);
+                }
+
+            });
+        }
+        var directionsService, directionsDisplay;
+        function initMap() {
+            directionsService = new google.maps.DirectionsService;
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: 50, lng: 8}
+            });
+            directionsDisplay.setMap(map);
+        }
+        function calculateAndDisplayRoute(origin, destinaion) {
+            directionsService.route({
+                origin: origin,
+                destination: destinaion,
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function (response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+        var flag = true;
+        function ReachabilityCalculator() {
+            var street = $('#street').val(),
+                    housenumber = $('#house').val(),
+                    zip = $('#zip').val(),
+                    city = $('#city').val();
+            var origin = 'Elsa-Brändström-Straße 51B, Gonsenheim 55124 Mainz Germany';
+            var destination = street + ' ' + housenumber + ' ' + zip + ' ' + city + ' Germany';
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                    {
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                        unitSystem: google.maps.UnitSystem.METRIC
+                    }, function (response, status) {
+                        console.log(response);
+                        var distance = response.rows[0].elements[0].distance;
+                        if (status == 'OK' && distance != undefined) {
+                            if (parseFloat(distance.text) <= 150) {
+                                SuccessMsg('Wir sind in Ihrem Ort verfügbar.');
+                                if (flag) {
+                                    flag = false;
+                                    initMap();
+                                }
+                                calculateAndDisplayRoute(origin, destination);
+                                var dynamicDialog = $('#map');
+                                dynamicDialog.dialog({
+                                    title: "Route",
+                                    modal: true,
+                                    height: 500,
+                                    width: 800,
+                                    open: function () {
+                                        $('.ui-dialog').css('z-index', 112);
+                                        $('.ui-dialog-buttonset>button').css({'background': 'rgb(8,55,80)', 'color': 'white'});
+                                        $('.ui-dialog-titlebar').css({'background': 'rgb(8,55,80)', 'color': 'white'});
+                                    },
+                                    buttons: {
+                                        "Jetzt buchen": function () {
+                                            window.location = '/book';
+                                        }
+                                    }
+                                });
+                            } else if (parseFloat(response.rows[0].elements[0].distance.text) > 150) {
+                                ErrorMsg('Leider sind wir in Ihrem Ort nicht verfügbar.');
+                            }
+                        } else {
+                            ErrorMsg('Leider haben wir Ihre Adresse nicht gefuden. Bitte erneut versuchen.');
+                        }
+                    });
+        };
+
+
+
