@@ -1,8 +1,8 @@
 var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
-var pdf= require('pdfkit');
-var fs=require('fs');
+var pdf = require('pdfkit');
+var fs = require('fs');
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', {udata: req.session.user});
@@ -33,33 +33,34 @@ module.exports = function (app) {
     });
     app.post('/book', function (req, res) {
         fs.unlink('simplewash.pdf');
-        var myDoc=new pdf;
+        var myDoc = new pdf;
         myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
-        myDoc.font('Times-Roman').fontSize(18).text('jas',100,100);
+        myDoc.font('Times-Roman').fontSize(18).text(JSON.stringify(req.body), 100, 100);
         myDoc.end();
-        EM
-        if (req.session.user != null) {
-            AM.updateAccount({
-                id: req.session.user._id,
-                name: req.session.user.name,
-                email: req.session.user.email,
-                pass: 'DO_NOT_UPDATE_PASS',
-                country: req.session.user.country,
-                data: req.body
-            }, function (e, o) {
-                if (e) {
-                    res.status(400).send('error-updating-data');
-                } else {
-                    req.session.user = o;
-                    // update the user's login cookies if they exists //
-                    if (req.cookies.user != undefined && req.cookies.pass != undefined) {
-                        res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
-                        res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
+        EM.dispatchMailWithAttachment(function () {
+            if (req.session.user != null) {
+                AM.updateAccount({
+                    id: req.session.user._id,
+                    name: req.session.user.name,
+                    email: req.session.user.email,
+                    pass: 'DO_NOT_UPDATE_PASS',
+                    country: req.session.user.country,
+                    data: req.body
+                }, function (e, o) {
+                    if (e) {
+                        res.status(400).send('error-updating-data');
+                    } else {
+                        req.session.user = o;
+                        // update the user's login cookies if they exists //
+                        if (req.cookies.user != undefined && req.cookies.pass != undefined) {
+                            res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
+                            res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
+                        }
+                        res.status(200).send('ok');
                     }
-                    res.status(200).send('ok');
-                }
-            });
-        }
+                });
+            }
+        });
 
     });
 
@@ -171,7 +172,7 @@ module.exports = function (app) {
     app.post('/lost-password', function (req, res) {
         AM.getAccountByEmail(req.body['email'], function (o) {
             if (o) {
-                EM.dispatchResetPasswordLink(o,req, function (e, m) {
+                EM.dispatchResetPasswordLink(o, req, function (e, m) {
                     // TODO add an ajax loader to give user feedback //
                     if (!e) {
                         res.status(200).send('ok');
