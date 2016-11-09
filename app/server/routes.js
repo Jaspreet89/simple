@@ -32,11 +32,7 @@ module.exports = function (app) {
         });
     });
     app.post('/book', function (req, res) {
-        fs.unlink('simplewash.pdf');
-        var myDoc = new pdf;
-        myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
-        myDoc.font('Times-Roman').fontSize(18).text(JSON.stringify(req.body), 100, 100);
-        myDoc.end();
+        EM.createPDF(req,pdf,fs);
         EM.dispatchMailWithAttachment(function () {
             if (req.session.user != null) {
                 AM.updateAccount({

@@ -61,6 +61,51 @@ EM.composeEmail = function (o, req) {
     html += "</body></html>";
     return [{data: html, alternative: true}];
 }
+EM.createPDF=function(req,pdf,fs){
+    var myDoc = new pdf;
+    myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
+    myDoc.text("brand :- " + req.body.brand);
+    myDoc.moveDown();
+    myDoc.text("model :- "+req.body.model);
+    myDoc.moveDown();
+    myDoc.text("options :- "+JSON.stringify(req.body.options));
+    myDoc.moveDown();
+    myDoc.text("preis :- "+req.body.preis);
+    myDoc.moveDown();
+    myDoc.text("farbe :- "+req.body.farbe);
+    myDoc.moveDown();
+    myDoc.text("kennzeichen :- "+req.body.kennzeichen);
+    myDoc.moveDown();
+    myDoc.text("einsatzort :- "+req.body.einsatzort);
+    myDoc.moveDown();
+    myDoc.text("plz :- "+req.body.plz);
+    myDoc.moveDown();
+    myDoc.text("strasse :- "+req.body.strasse);
+    myDoc.moveDown();
+    myDoc.text("hausnr :- "+req.body.hausnr);
+    myDoc.moveDown();
+    myDoc.text("telefon :- "+req.body.telefon);
+    myDoc.moveDown();
+    myDoc.text("anmerkung :- "+req.body.anmerkung);
+    myDoc.moveDown();
+    myDoc.text("abstellplatz :- "+req.body.abstellplatz);
+    myDoc.moveDown();
+    myDoc.text("datum :- "+req.body.datum);
+    myDoc.moveDown();
+    myDoc.text("zeit :- "+req.body.zeit);
+    myDoc.moveDown();
+    myDoc.text("vorname :- "+req.body.vorname);
+    myDoc.moveDown();
+    myDoc.text("nachname :- "+req.body.nachname);
+    myDoc.moveDown();
+    myDoc.text("firma :- "+req.body.firma);
+    myDoc.moveDown();
+    myDoc.text("email :- "+req.body.email);
+    myDoc.moveDown();
+    myDoc.text("zahlungsart :- "+req.body.zahlungsart);
+    myDoc.moveDown();
+    myDoc.end();
+}
 EM.dispatchMailWithAttachment = function (callback) {
     setTimeout(function(){
     EM.server.send({
