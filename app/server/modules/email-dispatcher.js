@@ -61,59 +61,91 @@ EM.composeEmail = function (o, req) {
     html += "</body></html>";
     return [{data: html, alternative: true}];
 }
+function getDateTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return day + "." + month + "." + year;
+
+}
 EM.createPDF=function(req,pdf,fs){
     var myDoc = new pdf;
     myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
-    myDoc.text("brand :- " + req.body.brand);
-    myDoc.moveDown();
-    myDoc.text("model :- "+req.body.model);
-    myDoc.moveDown();
-    myDoc.text("options :- "+JSON.stringify(req.body.options));
-    myDoc.moveDown();
-    myDoc.text("preis :- "+req.body.preis);
-    myDoc.moveDown();
-    myDoc.text("farbe :- "+req.body.farbe);
-    myDoc.moveDown();
-    myDoc.text("kennzeichen :- "+req.body.kennzeichen);
-    myDoc.moveDown();
-    myDoc.text("einsatzort :- "+req.body.einsatzort);
-    myDoc.moveDown();
-    myDoc.text("plz :- "+req.body.plz);
-    myDoc.moveDown();
-    myDoc.text("strasse :- "+req.body.strasse);
-    myDoc.moveDown();
-    myDoc.text("hausnr :- "+req.body.hausnr);
-    myDoc.moveDown();
-    myDoc.text("telefon :- "+req.body.telefon);
-    myDoc.moveDown();
-    myDoc.text("anmerkung :- "+req.body.anmerkung);
-    myDoc.moveDown();
-    myDoc.text("abstellplatz :- "+req.body.abstellplatz);
-    myDoc.moveDown();
-    myDoc.text("datum :- "+req.body.datum);
-    myDoc.moveDown();
-    myDoc.text("zeit :- "+req.body.zeit);
-    myDoc.moveDown();
-    myDoc.text("vorname :- "+req.body.vorname);
-    myDoc.moveDown();
-    myDoc.text("nachname :- "+req.body.nachname);
-    myDoc.moveDown();
-    myDoc.text("firma :- "+req.body.firma);
-    myDoc.moveDown();
-    myDoc.text("email :- "+req.body.email);
-    myDoc.moveDown();
-    myDoc.text("zahlungsart :- "+req.body.zahlungsart);
-    myDoc.moveDown();
+    myDoc.fontSize(10);
+    myDoc.image('header.png',{width:500});
+    myDoc.moveDown(0.5);
+    myDoc.text("Simple-Wash");
+    myDoc.moveDown(0.1);
+    myDoc.text("Reda Iddouch");
+    myDoc.moveDown(0.1);
+    myDoc.text("+49 (0)173 76 82 942");
+    myDoc.moveDown(0.1);
+    myDoc.text("Elsa-Brändström-Str. 51b");
+    myDoc.moveDown(0.1);
+    myDoc.text("Str. Nr. : 2726/075/64375");
+    myDoc.moveDown(3);
+    myDoc.text(req.body.vorname+ " "+req.body.nachname);
+    myDoc.moveDown(0.1);
+    myDoc.text(req.body.firma);
+    myDoc.moveDown(0.1);
+    myDoc.text(req.body.telefon);
+    myDoc.moveDown(0.1);
+    myDoc.text(req.body.email);
+    myDoc.moveDown(0.1);
+    myDoc.text(req.body.strasse+" "+req.body.hausnr);
+    myDoc.moveDown(0.1);
+    myDoc.text(req.body.einsatzort +" "+req.body.plz);
+    myDoc.moveDown(2);
+
+    myDoc.text("Rechnung");
+    myDoc.text(getDateTime(),{align:'right'});
+    myDoc.moveDown(2);
+    myDoc.text("Marke: " + req.body.brand);
+    myDoc.text("Modell: "+req.body.model);
+    myDoc.text("Farbe: "+req.body.farbe);
+    myDoc.text("Kennzeichen: "+req.body.kennzeichen);
+    myDoc.text("Abstellplatz: "+req.body.abstellplatz);
+    myDoc.text("Preis: "+req.body.preis);
+    myDoc.text("Datum: "+req.body.datum);
+    myDoc.text("Zeit: "+req.body.zeit);
+    myDoc.text("Zahlungsart: "+req.body.zahlungsart);
+    myDoc.text("Anmerkung: "+req.body.anmerkung);
+    myDoc.moveDown(1);
+    myDoc.text("Options: "+JSON.stringify(req.body.options));
+
+    myDoc.moveDown(3);
+    myDoc.text("Mit freundlichen Grüßen");
+    myDoc.moveDown(0.1);
+    myDoc.text("Simple-Wash");
+    myDoc.moveDown(3);
+    myDoc.image('footer.png',{width:500});
     myDoc.end();
 }
 EM.dispatchMailWithAttachment = function (callback) {
     setTimeout(function(){
     EM.server.send({
         from: process.env.EMAIL_FROM || 'Simple Wash <simplewash@gmail.com>',
-        to: 'jaashy.singh@gmail.com',
+        to: 'Simple Wash <simplewash@gmail.com>',
         subject: 'Reciept',
         text: 'Please Find Attachment',
-        attachment:[{path:"./simplewash.pdf", type:"application/pdf", name:"reciept.pdf"}]
+        attachment:[{path:"./simplewash.pdf", type:"application/pdf", name:"Rechnung.pdf"}]
     }, callback);
     }, 15000);
 }
