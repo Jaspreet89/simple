@@ -86,7 +86,7 @@ function getDateTime() {
 
 }
 EM.createPDF=function(req,pdf,fs){
-    var myDoc = new pdf;
+     var myDoc = new pdf;
     myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
     myDoc.fontSize(10);
     myDoc.image('header.png',{width:500});
@@ -113,7 +113,6 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(0.1);
     myDoc.text(req.body.einsatzort +" "+req.body.plz);
     myDoc.moveDown(2);
-
     myDoc.text("Rechnung");
     myDoc.text(getDateTime(),{align:'right'});
     myDoc.moveDown(2);
@@ -129,17 +128,16 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.text("Anmerkung: "+req.body.anmerkung);
     myDoc.moveDown(1);
     myDoc.text("Options: "+JSON.stringify(req.body.options));
-
     myDoc.moveDown(3);
     myDoc.text("Mit freundlichen Grüßen");
     myDoc.moveDown(0.1);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(3);
     myDoc.image('footer.png',{width:500});
-    myDoc.end();
+	myDoc.end();
 }
 EM.dispatchMailWithAttachment = function (callback) {
-    setTimeout(function(){
+    
     EM.server.send({
         from: process.env.EMAIL_FROM || 'Simple Wash <simplewash@gmail.com>',
         to: 'Simple Wash <simplewash@gmail.com>',
@@ -147,5 +145,5 @@ EM.dispatchMailWithAttachment = function (callback) {
         text: 'Please Find Attachment',
         attachment:[{path:"./simplewash.pdf", type:"application/pdf", name:"Rechnung.pdf"}]
     }, callback);
-    }, 15000);
+    
 }
