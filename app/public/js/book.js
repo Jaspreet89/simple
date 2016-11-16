@@ -100,7 +100,9 @@ function fetch() {
 	UserData.firma = $("#firma").val();
 	UserData.email = $("#email").val();
 	UserData.zahlungsart = $("#zahlungsart option:selected").text();
-	$.post('/book',UserData, "json");
+	$.post('/book',UserData, "json").success(function(data) {
+		window.location.href=data;
+	});
 }
 
 function load(Data) {
