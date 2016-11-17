@@ -76,7 +76,7 @@ var UserData = {};
 
 function fetch() {
 	UserData.brand = $("#brand option:selected").text();
-	UserData.model = $(".modell option:selected").text();
+	UserData.model = $(".modell "+UserData.brand +" option:selected").text();
 
 	UserData.options = [];
 	$('input[name="anzeige"]:checked').each(function () {
