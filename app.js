@@ -6,7 +6,7 @@ if(process.env.NODE_ENV=='live'){
 	process.env.DB_NAME='node-login';
 	process.env.DB_USER='simplewash';
 	process.env.DB_PASS='simplewash';
-	//process.env.PORT=3000;
+	process.env.PORT=3000;
 }
 
 var http = require('http');

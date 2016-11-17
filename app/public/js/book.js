@@ -76,7 +76,7 @@ var UserData = {};
 
 function fetch() {
 	UserData.brand = $("#brand option:selected").text();
-	UserData.model = $(".modell "+UserData.brand +" option:selected").text();
+	UserData.model = $(".modell ."+UserData.brand +" option:selected").text();
 
 	UserData.options = [];
 	$('input[name="anzeige"]:checked').each(function () {
@@ -100,9 +100,7 @@ function fetch() {
 	UserData.firma = $("#firma").val();
 	UserData.email = $("#email").val();
 	UserData.zahlungsart = $("#zahlungsart option:selected").text();
-	$.post('/book',UserData, "json").success(function(data) {
-		window.location.href=data;
-	});
+	$.post('/book',UserData, "json");
 }
 
 function load(Data) {

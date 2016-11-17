@@ -34,7 +34,7 @@ module.exports = function (app) {
     app.post('/book', function (req, res) {
         EM.createPDF(req,pdf,fs);
 		
-		setTimeout(function(){ EM.dispatchMailWithAttachment(function () {
+		EM.dispatchMailWithAttachment(function () {
             if (req.session.user != null) {
                 AM.updateAccount({
                     id: req.session.user._id,
@@ -58,8 +58,8 @@ module.exports = function (app) {
                 });
             }
         });
-		}, 10);
-		res.status(200).send('/');
+		
+		res.status(200).send('ok');
 
     });
 
