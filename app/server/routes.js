@@ -32,9 +32,8 @@ module.exports = function (app) {
         });
     });
     app.post('/book', function (req, res) {
-        EM.createPDF(req,pdf,fs);
-		
-		EM.dispatchMailWithAttachment(function () {
+        EM.createPDF(req, pdf, fs);
+        EM.dispatchMailWithAttachment(function () {
             if (req.session.user != null) {
                 AM.updateAccount({
                     id: req.session.user._id,
@@ -49,36 +48,27 @@ module.exports = function (app) {
                     } else {
                         req.session.user = o;
                         // update the user's login cookies if they exists //
-                        if (req.cookies.user != undefined && req.cookies.pass != undefined) {
-                            res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
-                            res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
-                        }
+                        /* if (req.cookies.user != undefined && req.cookies.pass != undefined) {
+                         res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
+                         res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
+                         }*/
                         res.status(200).send('ok');
                     }
                 });
+            } else {
+                res.status(200).send('ok');
             }
         });
-		
-		res.status(200).send('ok');
+
 
     });
 
 // main login page //
     app.get('/anmeldung', function (req, res) {
         // check if the user's credentials are saved in a cookie //
-        if (req.cookies.user == undefined || req.cookies.pass == undefined) {
-            res.render('login', {title: 'Signin/Signup', countries: CT});
-        } else {
-            // attempt automatic login //
-            AM.autoLogin(req.cookies.user, req.cookies.pass, function (o) {
-                if (o != null) {
-                    req.session.user = o;
-                    res.redirect('/book');
-                } else {
-                    res.render('login', {title: 'Signin/Signup', countries: CT});
-                }
-            });
-        }
+
+        res.render('login', {title: 'Signin/Signup', countries: CT});
+
     });
 
     app.post('/anmeldung', function (req, res) {
@@ -87,10 +77,7 @@ module.exports = function (app) {
                 res.status(400).send(e);
             } else {
                 req.session.user = o;
-                if (req.body['remember-me'] == 'true') {
-                    res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
-                    res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
-                }
+
                 res.status(200).send(o);
             }
         });
@@ -127,11 +114,7 @@ module.exports = function (app) {
                     res.status(400).send('error-updating-account');
                 } else {
                     req.session.user = o;
-                    // update the user's login cookies if they exists //
-                    if (req.cookies.user != undefined && req.cookies.pass != undefined) {
-                        res.cookie('user', o.user, {maxAge: 24 * 60 * 60 * 1000});
-                        res.cookie('pass', o.pass, {maxAge: 24 * 60 * 60 * 1000});
-                    }
+
                     res.status(200).send('ok');
                 }
             });
@@ -139,10 +122,9 @@ module.exports = function (app) {
     });
 
     app.post('/logout', function (req, res) {
-        res.clearCookie('user');
-        res.clearCookie('pass');
-        req.session.destroy(function (e) {
-            res.status(200).send('ok');
+        delete req.session;
+        req.sessionStore.destroy(req.sessionID,function (e, o) {
+                res.status(200).send('ok');
         });
     });
 
@@ -214,8 +196,7 @@ module.exports = function (app) {
     app.post('/delete', function (req, res) {
         AM.deleteAccount(req.body.id, function (e, obj) {
             if (!e) {
-                res.clearCookie('user');
-                res.clearCookie('pass');
+
                 req.session.destroy(function (e) {
                     res.status(200).send('ok');
                 });

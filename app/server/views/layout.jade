@@ -32,17 +32,14 @@ html(lang='en')
                     autohide: true
                 });
             }
-
-
-
             function attemptLogout(url) {
                 var that = this;
                 var location = document.URL;
                 $.ajax({
                     url: "/logout",
                     type: "POST",
-                    data: {logout: true},
                     success: function (data) {
+                        $('#userId').val("");
                         window.location = url;
                     },
                     error: function (jqXHR) {

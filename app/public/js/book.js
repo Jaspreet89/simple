@@ -76,7 +76,7 @@ var UserData = {};
 
 function fetch() {
 	UserData.brand = $("#brand option:selected").text();
-	UserData.model = $(".modell ."+UserData.brand +" option:selected").text();
+	UserData.model = $(".modell ._"+UserData.brand +" option:selected").text();
 
 	UserData.options = [];
 	$('input[name="anzeige"]:checked').each(function () {
@@ -100,7 +100,11 @@ function fetch() {
 	UserData.firma = $("#firma").val();
 	UserData.email = $("#email").val();
 	UserData.zahlungsart = $("#zahlungsart option:selected").text();
-	$.post('/book',UserData, "json");
+	$.post('/book',UserData, "json").success(function(response){
+		if(response=="ok"){
+			alert('we have recieved your request!. Will Contact you soon!');
+		}
+	});
 }
 
 function load(Data) {
