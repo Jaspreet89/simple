@@ -40,6 +40,7 @@ html(lang='en')
                     type: "POST",
                     success: function (data) {
                         $('#userId').val("");
+                        $('#login_link').show();
                         window.location = url;
                     },
                     error: function (jqXHR) {
@@ -54,6 +55,7 @@ html(lang='en')
             $(function () {
                 if ($('#userId').val() != "") {
                     $('#dropdownmenu').show();
+                    $('#login_link').hide();
                     $('#btn-logout').click(function () {
                         $('#dropdownmenu').hide();
                         attemptLogout('/');

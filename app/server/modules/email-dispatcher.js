@@ -4,14 +4,14 @@ module.exports = EM;
 EM.server = require("emailjs/email").server.connect(
     {
         host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-        user: process.env.EMAIL_USER || 'email@gmail.com',
-        password: process.env.EMAIL_PASS || 'pass',
+        user: process.env.EMAIL_USER || 'info.simplewash@gmail.com',
+        password: process.env.EMAIL_PASS || 'simplewash2016',
         ssl: true
     });
 
 EM.dispatchResetPasswordLink = function (account, req, callback) {
     EM.server.send({
-        from: process.env.EMAIL_FROM || 'Simple Wash <simplewash@gmail.com>',
+        from: process.env.EMAIL_FROM || 'Simple Wash <info.simplewash@gmail.com>',
         to: account.email,
         subject: 'Password Reset',
         text: 'something went wrong... :(',
@@ -20,7 +20,7 @@ EM.dispatchResetPasswordLink = function (account, req, callback) {
 }
 EM.dispatchkontaktMessage = function (kontaktMessage, callback) {
     EM.server.send({
-        from: process.env.EMAIL_FROM || 'Simple Wash <simplewash@gmail.com>',
+        from: process.env.EMAIL_FROM || 'Simple Wash <info.simplewash@gmail.com>',
         to: 'jaashy.singh@gmail.com',
         subject: 'Kontakt',
         text: '',
@@ -139,7 +139,7 @@ EM.createPDF=function(req,pdf,fs){
 EM.dispatchMailWithAttachment = function (callback) {
     
     EM.server.send({
-        from: process.env.EMAIL_FROM || 'Simple Wash <simplewash@gmail.com>',
+        from: process.env.EMAIL_FROM || 'Simple Wash <info.simplewash@gmail.com>',
         to: 'Simple Wash <simplewash@gmail.com>',
         subject: 'Reciept',
         text: 'Please Find Attachment',
