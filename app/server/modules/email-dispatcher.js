@@ -140,7 +140,7 @@ EM.dispatchMailWithAttachment = function (callback) {
     
     EM.server.send({
         from: process.env.EMAIL_FROM || 'Simple Wash <info.simplewash@gmail.com>',
-        to: 'Simple Wash <simplewash@gmail.com>',
+        to: 'Simple Wash <info.simplewash@gmail.com>',
         subject: 'Reciept',
         text: 'Please Find Attachment',
         attachment:[{path:__dirname+"/files/simplewash.pdf", type:"application/pdf", name:"Rechnung.pdf"}]
