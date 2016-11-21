@@ -87,9 +87,9 @@ function getDateTime() {
 }
 EM.createPDF=function(req,pdf,fs){
      var myDoc = new pdf;
-    myDoc.pipe(fs.createWriteStream(__dirname+'/pdf/simplewash.pdf'));
+    myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
     myDoc.fontSize(10);
-   // myDoc.image('/header.PNG',{width:500});
+    myDoc.image(__dirname+'/header.PNG',{width:500});
     myDoc.moveDown(0.5);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(0.1);
@@ -133,7 +133,7 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(0.1);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(3);
-    //myDoc.image('/footer.PNG',{width:500});
+    myDoc.image(__dirname+'/footer.PNG',{width:500});
 	myDoc.end();
 }
 EM.dispatchMailWithAttachment = function (callback) {
@@ -143,7 +143,7 @@ EM.dispatchMailWithAttachment = function (callback) {
         to: 'Simple Wash <info.simplewash@gmail.com>',
         subject: 'Reciept',
         text: 'Please Find Attachment',
-        attachment:[{path:__dirname+"/files/simplewash.pdf", type:"application/pdf", name:"Rechnung.pdf"}]
+        attachment:[{path:"simplewash.pdf", type:"application/pdf", name:"Rechnung.pdf"}]
     }, callback);
     
 }
