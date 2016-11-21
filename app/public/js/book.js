@@ -102,7 +102,7 @@ function fetch() {
 	UserData.zahlungsart = $("#zahlungsart option:selected").text();
 	$.post('/book',UserData, "json").success(function(response){
 		if(response=="ok"){
-			alert('we have recieved your request!. Will Contact you soon!');
+			SuccessMsg('we have recieved your request!. Will Contact you soon!');
 		}
 	});
 }
