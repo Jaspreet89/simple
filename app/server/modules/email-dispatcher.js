@@ -92,7 +92,7 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.fontSize(10);
     request({url: 'http://washsimple.herokuapp.com/files/header.PNG', encoding: null}, function(error, response, body){
         if(!error && response.statusCode == 200){
-            doc.image(body,{width:500});
+            myDoc.image(body,{width:500});
         }
     });
 
@@ -141,7 +141,7 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(3);
     request({url: 'http://washsimple.herokuapp.com/files/footer.PNG', encoding: null}, function(error, response, body){
         if(!error && response.statusCode == 200){
-            doc.image(body,{width:500});
+            myDoc.image(body,{width:500});
         }
     });
 	myDoc.end();
