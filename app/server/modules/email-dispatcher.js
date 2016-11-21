@@ -86,10 +86,16 @@ function getDateTime() {
 
 }
 EM.createPDF=function(req,pdf,fs){
+    var request = require('request');
      var myDoc = new pdf;
     myDoc.pipe(fs.createWriteStream(__dirname+'/pdf/simplewash.pdf'));
     myDoc.fontSize(10);
-    myDoc.image(req.protocol + '://' + req.host+'/files/header.PNG',{width:500});
+    request({url: 'http://washsimple.herokuapp.com/files/header.PNG', encoding: null}, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            doc.image(body,{width:500});
+        }
+    });
+
     myDoc.moveDown(0.5);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(0.1);
@@ -133,7 +139,11 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(0.1);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(3);
-    myDoc.image(req.protocol + '://' + req.host+'/files/footer.PNG',{width:500});
+    request({url: 'http://washsimple.herokuapp.com/files/footer.PNG', encoding: null}, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            doc.image(body,{width:500});
+        }
+    });
 	myDoc.end();
 }
 EM.dispatchMailWithAttachment = function (callback) {
