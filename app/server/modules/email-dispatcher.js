@@ -89,7 +89,7 @@ EM.createPDF=function(req,pdf,fs){
      var myDoc = new pdf;
     myDoc.pipe(fs.createWriteStream('simplewash.pdf'));
     myDoc.fontSize(10);
-    myDoc.image('/images/header.png',{width:500});
+    myDoc.image('./header.png',{width:500});
     myDoc.moveDown(0.5);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(0.1);
@@ -133,7 +133,7 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(0.1);
     myDoc.text("Simple-Wash");
     myDoc.moveDown(3);
-    myDoc.image('/images/footer.png',{width:500});
+    myDoc.image('./footer.png',{width:500});
 	myDoc.end();
 }
 EM.dispatchMailWithAttachment = function (callback) {
