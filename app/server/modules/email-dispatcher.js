@@ -48,10 +48,10 @@ EM.composekontaktEmail = function (kontaktMessage) {
 }
 EM.composeEmail = function (o, req) {
     var port = '/';
-    /*if (process.env.PORT != undefined)
-        port = ':' + process.env.PORT + '/';*/
+    if (process.env.PORT != undefined)
+        port = ':' + process.env.PORT + '/';
 
-    var link = req.protocol + '://' + req.host + port + 'reset-password?e=' + o.email + '&p=' + o.pass;
+    var link = req.protocol + '://' + req.host.split(':')[0] + port + 'reset-password?e=' + o.email + '&p=' + o.pass;
     var html = "<html><body>";
     html += "Hi " + o.name + ",<br><br>";
     html += "Your username is <b>" + o.user + "</b><br><br>";
