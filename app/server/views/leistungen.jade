@@ -1,0 +1,333 @@
+extends layout
+
+block content
+        meta(charset='UTF-8')
+        link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+        script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
+        link(rel='stylesheet', href='/css/leistungen.css')
+        title Leistungen
+        .bgcolorIndex(style='padding-top:1%; padding-left:1%;padding-right:1%; padding-bottom:10%;')
+                    .row
+                        .col-md-12.text-center
+                            h1 Leistungen
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-1') Außenreinigung per Hand
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-2') Klimaanlagen- Desinfektion
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-3') Lackaufbereitung ( Polieren )
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-4') Motorraumreinigung/ Motorraumversieglung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-5') Lackversieglung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-6') Scheiben-Nano-Versieglung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-7') Basis-Innenreinigung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-8') Intensiv-Innenreinigung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-9') Polster-und Teppichnassreinigung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-10') Verdeck imprägnierung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-11') Lederreinigung und -pflege
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-12') Teerentfernung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-13') Felgenreinigung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-23') Felgenversieglung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-15') Tierhaarentfernung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-16') Unterbodenversieglung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-17') Geruchsneutralisierung/Ozonbehandlung
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-18') Wartungspaket
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-19') Hol-und Bringservice
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-20') Dachhimmelreinigung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-21') Räderwechsel
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-22') Reifeneinlagerung
+                    .row
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-14') Flugrost
+                        label.col-md-6.text-center.btn.btn--blue(for='popup-24') Cabriodach-Imprägnierung
+                    input#popup-1.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-1')
+                        .popup__inner
+                            label.popup__close(for='popup-1')
+                            h1.text-center Außenreinigung per Hand
+                            p
+
+                                | Die Handwäsche eines Autos ist die einzigste Möglichkeit ein Auto wirklich sauber zu bekommen. Spezielle Shampoos und Reinigungsmaterialien kommen hier zum Einsatz. Zudem ist eine Regelmäßige Wäsche positiv für den Werterhalt des Autos.
+                    input#popup-2.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-2')
+                        .popup__inner
+                            label.popup__close(for='popup-2')
+                            h1.text-center Klimaanlagen- Desinfektion
+                            p
+                                 
+                            p
+                                | Klimaanlagen sind Brutstätten für Keime und Sporen, sicht- und unsichtbaren Schimmel. Aus diesem Grund sollten Sie immer wieder Ihre Klimaanlage desinfizieren lassen.
+                            p
+                                | Schadstoffe und Gerüche in den Innenräumen von Fahrzeugen belasten den menschlichen Organismus. Direkt führen Sie etwa zu Reizungen der Atemwegen und Augen. Indirekt können Kopfschmerzen, Allergien oder eingeschränkte Leistungsfähigkeit die Folge sein.
+                            p €89    €45 Aktionspreis zur Einführung
+                            p
+                    input#popup-3.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-3')
+                        .popup__inner
+                            label.popup__close(for='popup-3')
+                            h1.text-center Lackaufbereitung ( Polieren )
+                            p
+                                 
+                            p
+                                | Der Autolack ist ständig Witterungseinflüssen und mechanischen Belastungen ausgesetzt. Früher oder später altert der Lack und die Oberfläche verkratzt,der Lack wirkt stumpf und die Farbe verblasst.
+                            p
+                                | Regelmäßige und professionelle Lackpflege träge entscheidend zu einem Werterhalt Ihres Fahrzeugs. Lassen Sie sich von uns über die richtige Lackpflege und Produkte beraten.
+                            p
+                    input#popup-4.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-4')
+                        .popup__inner
+                            label.popup__close(for='popup-4')
+                            h1.text-center Motorraumreinigung/ Motorraumversieglung
+                            p
+                                 
+                            p
+                                | Die meisten Autofahrer die Ihr Fahrzeug zwar hegen und pflegen vergessen sehr Häufig das ''Herz'' Ihres KFZ, den Motor. Um die hundertprozentige Verfügbarkeit des Motors zu gewährleisten hilft eine Motorwäsche und Versieglung zwar nicht alleine, sie kann jedoch entscheidend dazu beitragen!
+                            p
+                                | Nach einer gründlichen Motorreinigung werden alle Teile und Verbindungsstücke mit einem speziellen, nicht handelsüblichen, Versieglungsmittel ummantelt. Dieser besondere Schutz hält neben Wasser auch Kleintiere wie z.B. den Marder fern und sollte aus diesem Grund regelmäßig durchgeführt werden.
+                            p
+                                | Simple-Wash übernimmt keine Haftung für elektronische Teile. Die Motorwäsche wird ausdrücklich auf eigenen Wunsch durchgeführt
+                            p
+                    input#popup-5.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-5')
+                        .popup__inner
+                            label.popup__close(for='popup-5')
+                            h1.text-center Lackversieglung
+                            p
+                                 
+                            p
+                                | Dachhimmel-Reinigung Detaillierte Komplettreinigung des gesamten Dachhimmels von Hand, die schonende Behandlung mit antibakteriellem Aktivschaum inkl. Bestmöglicher Beseitigung von Nikotin, diversen Flecken und Gerüchen.
+                            p
+                                | Die Stoffdächer werden Shampooniert und mit einer weichen Wurzelbürste bearbeitet, Fpr das gewünschte Endergebnis sorgt die Behandlung der manuellen Bearbeitung.
+                            p
+                                | Für den Arbeitseinsatz gilt wie verschmutz ist der Dachhimmel, daher können wir erst nach Besichtigung den Preis festlegen.
+                            p
+                    input#popup-6.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-6')
+                        .popup__inner
+                            label.popup__close(for='popup-6')
+                            h1.text-center Scheiben-Nano-Versieglung
+                            p
+                                 
+                            p
+                                | Für bessere Sicht bei Regen am Tag und besonders in der Nacht empfehlen wir unseren Kunden eine Nano-Scheibenversieglung. Wir beschichten die Frontscheibe Ihres Fahrzeuges mit einem speziellen nano-technologischen Verfahren. Diese Nanoteilchen gehen mit der Glasoberfläche der Frontscheibe eine chemische Verbindung ein und verändern die physikalischen Eigenschaften der Oberfläche wesentlich. Das Wasser läuft auf der Scheibe nicht mehr breit und bildet keinen Wasserfilm sondern sammelt sich in Form von Wasserperlen, die vom Fahrtwind abtransportiert werden. Sie haben eine wesentlich verbesserte Sicht.
+                            p
+                                | Die Haltbarkeit der Nano-Scheibenversieglung ist 8x höher, als bei anderen handelsüblichen Produkten und erstreckt sich, je nach Fahrleistung, auf 8 Monate, oder 15.000 bis 20.000 km.
+                            p
+                    input#popup-7.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-7')
+                        .popup__inner
+                            label.popup__close(for='popup-7')
+                            h1.text-center Basis-Innenreinigung
+                            p
+                                 
+                                | Eine Basis Autoinnenreinigung beinhaltet ein gründliches Aussaugen vom Innenraum, Ablagen und Kofferraum, außerdem die Reinigung von Spiegeln und Fenstern im Innenraum. Des Weiteren werden die Einstiege, die Türrahmen, das Cockpit, die Mittelkonsole und die Aschenbecher feucht abgewischt. Unterziehen Sie Ihr Fahrzeug einer Basis Autoinnenreinigung, erhalten Sie also die für ein normal verschmutztes Auto notwendigen Leistungen.
+                    input#popup-8.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-8')
+                        .popup__inner
+                            label.popup__close(for='popup-8')
+                            h1.text-center Intensiv-Innenreinigung
+                            p
+                                 
+                                | Folgende Zusatzleistungen bietet die Intensiv-Innenreinigung: intensive Reinigung der Einstiege, des Cockpits, der Mittelkonsole, aller Verkleidungselemente und das Shampoonieren der Polstersitze oder die Lederpflege der Ledersitze.
+                    input#popup-9.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-9')
+                        .popup__inner
+                            label.popup__close(for='popup-9')
+                            h1.text-center Polster-und Teppichnassreinigung
+                            p
+                                 
+                                | Im Laufe eines Fahrzeuglebens werden die Fahrzeugsitze strak beansprucht. Trotz der High-Tech Stoffen der Fahrzeughersteller kann es zu Verunreinigungen kommen die nicht ohne weiteres entfernt werden können. Profitieren Sie von unserem langjährigen Erfahrungsschatz im Bereich der Fahrzeugpolsterpflege. Auch hartnäckige Verunreinigungen können meist von unseren professionellen Fahrzeugaufbereitern entfernt werden.
+                    input#popup-10.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-10')
+                        .popup__inner
+                            label.popup__close(for='popup-10')
+                            h1.text-center Verdeck imprägnierung
+                            p
+                                 
+                                | Aliquam in sagittis nulla. Curabitur euismod diam eget risus venenatis, sed dictum lectus bibendum. Nunc nunc nisi, hendrerit eget nisi id, rhoncus rutrum velit. Nunc vel mauris dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla quis nisi eget imperdiet.
+                    input#popup-11.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-11')
+                        .popup__inner
+                            label.popup__close(for='popup-11')
+                            h1.text-center Lederreinigung und -pflege
+                            p
+                                 
+                            p
+                                | Es gibt nichts schöneres im Fahrzeug als ein gepflegter Fahrzeuginnenraum. Und hierzu zählt auch die Ledergarnitur Ihres Fahrzeuges. Dieses organische Material benötigt eine regelmäßige jedoch schonende Pflege um z.B. Verfärbungen, Abnutzungen, Kratzern, Beulen ect. Entgegenzuwirken.
+                            p
+                                | Je nach Lederart und Farbe können hierbei ganz unterschiedliche Pflegeansätze vorherrschen. Sprechen Sie uns an, wir beraten Sie gerne.
+                            p
+                    input#popup-12.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-12')
+                        .popup__inner
+                            label.popup__close(for='popup-12')
+                            h1.text-center Teerentfernung
+                            p
+                                 
+                                | Teer-btw. Bitumenflecken lassen sich nicht vermeiden, wenn Sie mit Ihrem Auto über eine frisch asphaltierte Straße  oder Fahrbahn mit Rollsplit gefahren sind. Wir entfernen die unschönen Flecken fachgerecht mit Spezialpflegemitteln. Nach der Teerentfernung empfehlen wir eine Versieglung der Lackoberflächen.
+                    input#popup-13.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-13')
+                        .popup__inner
+                            label.popup__close(for='popup-13')
+                            h1.text-center Felgenreinigung
+                            p
+                                 
+                            p
+                                | Felgen sind als Bestandteil des Rads dicht an der Fahrbahn und somit unmittelbar Staub und Dreck ausgesetzt. Werden die Felgen nicht regelmäßig gereinigt, so können sich Bremsstaub und Schmutz dauerhaft festsetzen. Die Folge sind Flugrost und Korrosion, von der Stahlfelgen gleichermaßen wie Alufelgen betroffen sind. Wir reinigen die Felgen von verkrusteten Dreckpartikeln und bringen sie wieder auf Hochglanz. Gepflegte Felgen sehen nicht nur gut aus, sondern weisen auch eine deutlich höhere Lebensdauer auf.
+                            p
+                    input#popup-14.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-14')
+                        .popup__inner
+                            label.popup__close(for='popup-14')
+                            h1.text-center Flugrost
+                            p
+                                 
+                                | Flugrost kann an allen Metallkomponenten oder verchromten Oberflächen Ihres Fahrzeugs auftreten. Dabei dringen von außen fremde Teilchen, z.B. Abreibungspartikel der Bremsen oder Streusalz, in die Lackierung ein und oxidieren. Häufig betroffen sind Türfalzen, Radkästen, Heckspoiler, Heckscheiben und Felgen. Flugrost ist das Anfangsstadium des Korrosionsprozesses und sollte daher sofort entfernt werden. Bei auftretender Nässe kann die Verrostung schnell stärker werden. Wir beseitigen nicht nur das Problem- die sichtbaren rötlichen Flecken-, sondern auch die Ursache, also die in die Lackschicht eingedrungenen Metallteilchen. Um auch im Anschluss an die Flugrostentfernung die Karosserie und Fahrzeugkomponenten zu schützen, empfehlen wir eine sorgfältige Versieglung. Sie ist wichtig, damit Lack und Oberflächen nicht stumpf und matt werden und gut gegen Außeneinflüsse geschützt werden.
+                    input#popup-15.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-15')
+                        .popup__inner
+                            label.popup__close(for='popup-15')
+                            h1.text-center Tierhaarentfernung
+                            p
+                                 
+                            p
+                                | Wenn sie Besitzer eines lieb gewonnenen Haustieres sind, und dieses in Ihrem Fahrzeug mitführen, werden Sie das Problem kennen: Tierhaare auf dem Teppich oder Polster. Mit professionellen Spezialwerkzeugen und Geduld entfernen wir im gesamten Fahrzeuginnenraum inkl. Kofferraum sämtliche festsitzende Tierhaare.
+                            p
+                                | Parallel zu Tierhaarentfernung ist es ratsam eine Geruchsneutralisierung im Fahrzeug durchzuführen. Auch hier bieten wir mehrere Varianten an und beraten Sie gerne Persönlich.
+                            p Die Tierhaarentfernung wird pro Stunde mit 30,-€ berechnet.
+                            p
+                    input#popup-16.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-16')
+                        .popup__inner
+                            label.popup__close(for='popup-16')
+                            h1.text-center Unterbodenversieglung
+                            p
+                                 
+                                | Aliquam in sagittis nulla. Curabitur euismod diam eget risus venenatis, sed dictum lectus bibendum. Nunc nunc nisi, hendrerit eget nisi id, rhoncus rutrum velit. Nunc vel mauris dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla quis nisi eget imperdiet.
+                    input#popup-17.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-17')
+                        .popup__inner
+                            label.popup__close(for='popup-17')
+                            h1.text-center Geruchsneutralisierung/Ozonbehandlung
+                            p
+                                 
+                                | Ozon wird angewendet um den Geruch nach Brand, Rauch, Nikotin, Chemikalien, Tiergeruch oder anderen organischen Geruchsquellen zu vernichten. Es bleiben keine chemischen Rückstände zurück. Dauer je nach stärke des Geruches bis zu 24 Std. Die Ozonenbehandlung ist eine besondere Form von Sauerstoff die auch zur Desinfektion eingesetzt wird um Keime, Viren, Bakterien und Schimmel zu töten. Eine gründliche Innenreinigung ist zwingend notwendig vor einer Ozonenbehandlung.
+                    input#popup-18.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-18')
+                        .popup__inner
+                            label.popup__close(for='popup-18')
+                            h1.text-center Wartungspaket
+                            p
+                                 
+                            p
+                                | Da wir uns um Unsere Kunden stets kümmern bieten wir nun ein Wartungspaket an welches beinhaltet eine Wischwasser Kontrolle bzw. Nachfüllung, eine Öl Kontrolle bzw. Nachfüllung,
+                                | die Messung der Reifenprofile und das überprüfen des Reifendrucks ggf.  die Befüllung.
+                            p Das Wartungspaket Kostet 25,-€
+                            p
+                    input#popup-19.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-19')
+                        .popup__inner
+                            label.popup__close(for='popup-19')
+                            h1.text-center Hol-und Bringservice
+                            p
+                                 
+                            p
+                                | ''Fahrzeugpflege müsste eigentlich mal wieder dran sein. Aber wann?'' . Geht es Ihnen wie vielen unserer Kunden auch so, dass Sie im Alltagsstress einfach keine freie Minute finden um Ihr Fahrzeug bei uns vorzustellen? Kein Problem! Im Umkreis von ca.20 km von Eltville am Rhein bieten wir einen Kostenlosen Hol- und Bringservice an, damit Sie sich anderen Dingen zuwenden und wir uns in Ruhe um Ihr KFZ kümmern können.
+                            p Vereinbaren Sie doch noch heute einen Termin mit uns! Wir helfen Ihnen gern!
+                            p
+                    input#popup-20.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-20')
+                        .popup__inner
+                            label.popup__close(for='popup-20')
+                            h1.text-center Dachhimmelreinigung
+                            p
+                                 
+                            p
+                                | Dachhimmel-Reinigung Detaillierte Komplettreinigung des gesamten Dachhimmels von Hand, die schonende Behandlung mit antibakteriellem Aktivschaum inkl. Bestmöglicher Beseitigung von Nikotin, diversen Flecken und Gerüchen.
+                            p
+                                | Die Stoffdächer werden Shampooniert und mit einer weichen Wurzelbürste bearbeitet, Fpr das gewünschte Endergebnis sorgt die Behandlung der manuellen Bearbeitung.
+                            p
+                                | Für den Arbeitseinsatz gilt wie verschmutz ist der Dachhimmel, daher können wir erst nach Besichtigung den Preis festlegen.
+                            p
+                    input#popup-21.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-21')
+                        .popup__inner
+                            label.popup__close(for='popup-21')
+                            h1.text-center Räderwechsel
+                            p
+                                 
+                            p
+                                | Ohne Voranmeldung können Sie spontan zum Rädertauschen kommen, oder Sie erhalten einen kurzfristigen reservierten Wunschtermin- versprochen.
+                            p
+                                | Die Überprüfung des Reifendrucks und der Profiltiefe sind für uns Selbstverständlich und für Sie ohne zusätzliche Kosten. Auch das Nachziehen der Radschrauben nach ca. 200km bieten wir Ihnen kostenlos an. Unsere Fachleute garantieren Ihnen höchste Qualität und perfekten Service.
+                            p
+                                | Für weitere Fragen oder Wunschtermin wenden Sie sich bitte an das Simple-Wash Serviceteam unter der Rufnummer …...
+                    input#popup-22.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-22')
+                        .popup__inner
+                            label.popup__close(for='popup-22')
+                            h1.text-center Reifeneinlagerung
+                            p
+                                 
+                            p
+                                | Wir lagern Ihre Saisonreifen bzw. -räder gegen eine geringe in unserem Fachbetrieb, fachgerecht. Spezielle Reifenregale machen das Lagern im Stehen möglich.
+                            p
+                                | Trocken und sicher. Wir wechseln und kontrollieren den Zustand Ihres saisonalen Radsatzes in unserer Meisterwerkstatt und lagern ihn fachgerecht auf Reifensystemregalen ein.
+                            p €49,-/ Satz je Saison
+                            p Unsere Fachleute garantieren Ihnen höchste Qualität und perfekten Service,
+                            p
+                                | Für weitere Fragen oder Wunschtermin wenden Sie sich bitte an das Simple-Wash Serviceteam unter der Rufnummer ….
+                            p
+                    input#popup-23.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-23')
+                        .popup__inner
+                            label.popup__close(for='popup-23')
+                            h1.text-center Felgenversieglung
+                            p
+                                 
+                            p
+                                | Eine Felgenversieglung ermöglicht einen Zeitraum dauerhaften Schutz und Glanz für alle Arten von Felgen. Eine Felgenversieglung wirkt wasser-, salz und schmutzabweisend, zusätzlich verhindert sie das Einbrennen und Festsetzen von Bremsstaub und anderen Verunreinigungen.
+                            p
+                    input#popup-24.popup-state(type='checkbox')
+                    .popup
+                        label.popup__bg(for='popup-24')
+                        .popup__inner
+                            label.popup__close(for='popup-24')
+                            h1.text-center Cabriodach-Imprägnierung
+                            p
+                                 
+                            p
+                                | Regen, Wind und UV-Strahlungen setzen jedem Cabrio-Verdeck zu: Der Verdeckstoff bleicht aus und verliert seinen wasserabweisenden Schutz, wird rau und weich. Dreck kann sich jetzt festzsetzen und hartnäckig haften bleiben.
+                            p
+                                | Mechanische Reinigungen, also das Scheuern, Schrubben , Bürsten schaden dem Material zusätzlich. Nur die regelmäßige Imprägnierung von textilen Cabrio-Verdecken verringert die Wiederverschmutzung und sorgt- dank hervorragender öl- und wasserabweisender Eigenschaften dafür, dass sich das Verdeck nicht mit Feuchtigkeit vollsaugt und schneller wieder abtrocknet. Der integrierte UV-Schutz verhindert ein Ausbleichen. Zukünftig auftretende Verunreinigungen sind leichter zu entfernen, da die Haftung von Schmutzpartikeln stark reduziert ist.
+                            p Im Vorfeld wird das Cabrio-Verdeck gereinigt und getrocknet.
+                            p

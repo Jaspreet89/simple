@@ -22,7 +22,7 @@ function HomeController()
 			type: 'POST',
 			data: { id: $('#userId').val()},
 			success: function(data){
-	 			that.showLockedAlert('Your account has been deleted.<br>Redirecting you back to the homepage.');
+	 			that.showLockedAlert('Ihr Konto wurde gelöscht.<br>Sie werden zur Hauptseite weitergeleitet.');
 			},
 			error: function(jqXHR){
 				console.log(jqXHR.responseText+' :: '+jqXHR.statusText);
@@ -46,7 +46,7 @@ HomeController.prototype.onUpdateSuccess = function()
 {
 	$('.modal-alert').modal({ show : false, keyboard : true, backdrop : true });
 	$('.modal-alert .modal-header h4').text('Success!');
-	$('.modal-alert .modal-body p').html('Your account has been updated.');
+	$('.modal-alert .modal-body p').html('Ihr Konto wurde geupdated.');
 	$('.modal-alert').modal('show');
 	$('.modal-alert button').off('click');
 }

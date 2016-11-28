@@ -4,7 +4,7 @@ block content
     #map
     .content
         .homepage
-            .video-container
+            .video-container(style="background-image:url('/document/Logo.png');background-size:cover;background-repeat:no-repeat;")
                 .title-container
                     .headline
                         h1 Simple Wash
@@ -18,9 +18,22 @@ block content
                                 input#zip(name='zip', data-geo='postal_code', placeholder='Postleitzahl', type='text', required='')
                                 input#city(name='city', data-geo='locality', placeholder='Ort', type='text', required='')
                         a#check_availability.thick.button(href='javascript:ReachabilityCalculator();') Jetzt Verfügbarkeit prüfen
-                video.fillWidth(autoplay='', loop='')
-                    source(src='http://blacktie.co/demo/appi/video/appi.mp4', type='video/mp4')
-                    |                 Your browser does not support the video tag. I suggest you upgrade your browser.
+
+
+    .bgcolorIndex
+        .rowData.boxIndex
+          .text-center
+            h1 Willkommen bei Simple-Wash Ihrer professionelle Autopflege
+            br
+            br
+          p
+            | An einer regelmäßigen Autoreinigung kommt leider früher oder später kein Fahrzeugbesitzer vorbei. Zu jeder Jahreszeit verschmutzen beispielsweise Straßendreck, Blätter, Vögel und Insekten den Lack Ihres Fahrzeuges von außen und auch bei der alltäglichen Nutzung Ihres Autos verschmutz mit der Zeit auch der Fahrzeuginnenraum unvermeidlich. Hier kommen unsere Leistungen ins Spiel.
+          p
+            | Wir bieten Ihnen die fachgerechte Außen- und Innenreinigung Ihres Fahrzeuges zu einem fairen Preis. Unser Service bietet Ihnen die Möglichkeit, unsere Einzelleistungen individuell nach Ihren Wünschen zu kombinieren oder auch gleich eines unserer Komplett-Pakete zu wählen. Wir sind eine Stationäre sowie eine mobile Fahrzeugaufbereitung und können dies auch bei Ihnen vor Ort durchführen. Klicken Sie einfach auf unsere LEISTUNGEN und erfahren Sie mehr.
+          p Vorteile:
+          p Sie möchten Ihr Fahrzeug verkaufen ?
+          p
+            | Eine Aufbereitung erzielt einen höheren Verkaufspreis, und der neue Käufer fühlt sich gleich wohl in seinem neuen Fahrzeug. Unsere Erfahrungswerte zeigen das eine professionelle Fahrzeugaufbereitung zu deutlichen höheren Verkaufspreisen führt.
 
 
 block scripts
@@ -28,43 +41,11 @@ block scripts
 
     script.
         $(document).ready(function () {
-            // Resive video
-            scaleVideoContainer();
-            initBannerVideoSize('.video-container video');
-            $(window).on('resize', function () {
-                scaleVideoContainer();
-                scaleBannerVideoSize('.video-container video');
-            });
+            $('.homepage').height($(window).height());
+            $('.homepage').width($(window).width());
         });
-        function scaleVideoContainer() {
-            var height = $(window).height();
-            var unitHeight = parseInt(height) + 'px';
-            $('.homepage').css('height', unitHeight);
-        }
-        function initBannerVideoSize(element) {
-            $(element).each(function () {
-                $(this).data('height', $(this).height());
-                $(this).data('width', $(this).width());
-            });
-            scaleBannerVideoSize(element);
-        }
-        function scaleBannerVideoSize(element) {
-            var windowWidth = $(window).width(),
-                    windowHeight = $(window).height(),
-                    videoWidth,
-                    videoHeight;
-            $(element).each(function () {
-                var videoAspectRatio = $(this).data('height') / $(this).data('width'),
-                        windowAspectRatio = windowHeight / windowWidth;
-                if (windowAspectRatio > (2 * videoAspectRatio)) {
-                    videoHeight = windowHeight;
-                    videoWidth = videoHeight / videoAspectRatio;
-                    $(this).css({'margin-top': 0, 'margin-left': -(videoWidth - windowWidth) / 2 + 'px'});
-                    $(this).width(videoWidth).height(videoHeight);
-                }
 
-            });
-        }
+
         var directionsService, directionsDisplay;
         function initMap() {
             directionsService = new google.maps.DirectionsService;
@@ -94,7 +75,7 @@ block scripts
                     housenumber = $('#house').val(),
                     zip = $('#zip').val(),
                     city = $('#city').val();
-            var origin = 'Elsa-Brändström-Straße 51B, Gonsenheim 55124 Mainz Germany';
+            var origin = 'Rohrbergstraße 3, 65343 Eltville am Rhein';
             var destination = street + ' ' + housenumber + ' ' + zip + ' ' + city + ' Germany';
             var service = new google.maps.DistanceMatrixService();
             service.getDistanceMatrix(

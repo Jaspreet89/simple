@@ -7,6 +7,12 @@ module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', {udata: req.session.user});
     });
+    app.get('/anfahrtoffenung', function (req, res) {
+        res.render('anfahrtoffenung', {udata: req.session.user});
+    });
+    app.get('/leistungen', function (req, res) {
+        res.render('leistungen', {udata: req.session.user});
+    });
 
     app.get('/contact', function (req, res) {
         res.render('contact', {udata: req.session.user});
@@ -55,6 +61,14 @@ module.exports = function (app) {
                         res.status(200).send('ok');
                     }
                 });
+            }else if(req.body.fbID !=null){
+                AM.InsertFBData(req.body,function (e,o) {
+                    if (e) {
+                        res.status(400).send('error-insert-update-data');
+                    } else {
+                        res.status(200).send('ok');
+                    }
+                });
             } else {
                 res.status(200).send('ok');
             }
@@ -62,7 +76,15 @@ module.exports = function (app) {
 
 
     });
-
+    app.post('/fb_data',function (req, res) {
+        AM.GetFBData(req.body.fbID,function (e,o) {
+            if (e) {
+                res.status(400).send('error-getting-data');
+            } else {
+                res.status(200).send( o);
+            }
+        })
+    });
 // main login page //
     app.get('/anmeldung', function (req, res) {
         // check if the user's credentials are saved in a cookie //
@@ -82,7 +104,10 @@ module.exports = function (app) {
             }
         });
     });
+    app.post('/fb', function (req, res) {
 
+
+    });
 // logged-in user homepage //
 
     app.get('/accountSetting', function (req, res) {

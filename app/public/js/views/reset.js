@@ -13,11 +13,11 @@ $(document).ready(function(){
 			}
 		},
 		success	: function(responseText, status, xhr, $form){
-			rv.showSuccess("Your password has been reset.");
+			rv.showSuccess("Ihr Passwort wurde zurückgesetzt.");
 			setTimeout(function(){ window.location.href = '/anmeldung'; }, 3000);
 		},
 		error : function(){
-			rv.showAlert("I'm sorry something went wrong, please try again.");
+			rv.showAlert("Aktion fehlgeschlagen. Bitte erneut versuchen.");
 		}
 	});
 

@@ -4,7 +4,7 @@
 #account-form-container.simple_form
 	form(method="post",action='/signup')#account-form
 		h2
-		h6#sub1 Please tell us a little about yourself.
+		h6#sub1 Bitte füllen Sie das folgende Formular komplett aus.
 		hr
 		.form-group
 			label Name
@@ -15,18 +15,18 @@
 			input.form-control#email-tf(type='text', name='email', value= user.email)
 
 		.form-group
-			label Location
+			label Ort
 			select.form-control#country-list(name='country')
 					each item in countries
 						option(selected=item.name == user.country)= item.name
 		hr
 		h6#sub2
 		.form-group
-			label Username
+			label Benutzername
 			input.form-control#user-tf(type='text', name='user', value= user.user).disabled
 
 		.form-group
-			label Password
+			label Passwort
 			input.form-control#pass-tf(type='password', name='pass', value='')
 
 		hr

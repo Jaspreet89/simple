@@ -20,7 +20,7 @@ $(document).ready(function(){
 			if (status == 'success') window.location.href = '/book';
 		},
 		error : function(e){
-			lv.showLoginError('Login Failure', 'Please check your username and/or password');
+			lv.showLoginError('Login Fehlgeschlagen', 'Falscher Benutzername und/oder Passwort.');
 		}
 	}); 
 	$('#user-tf').focus();
@@ -38,11 +38,11 @@ $(document).ready(function(){
 		},
 		error : function(e){
 			if (e.responseText == 'email-not-found'){
-				ev.showEmailAlert("Email not found. Are you sure you entered it correctly?");
+				ev.showEmailAlert("Email-Adresse wurde nicht gefunden.");
 			}	else{
 				$('#cancel').html('OK');
 				$('#retrieve-password-submit').hide();
-				ev.showEmailAlert("Sorry. There was a problem, please try again later.");
+				ev.showEmailAlert("Aktion Fehlgeschlagen. Bitte erneut versuchen.");
 			}
 		}
 	});

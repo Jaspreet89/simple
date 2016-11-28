@@ -111,18 +111,23 @@ function fetch() {
     UserData.firma = $("#firma").val();
     UserData.email = $("#email").val();
     UserData.zahlungsart = $("#zahlungsart option:selected").text();
+    if (getCookie("fb_simplewash"))
+        UserData.fbID = JSON.parse(getCookie("fb_simplewash")).authResponse.userID;
+    else
+        UserData.fbID = null;
+
     if (validateData([UserData])) {
         if ($('#_agb').is(':checked')) {
             $.post('/book', UserData, "json").success(function (response) {
                 if (response == "ok") {
-                    SuccessMsg('we have recieved your request!. Will Contact you soon!');
+                    SuccessMsg('Wir haben Ihre Nachricht erhalten. Wir melden uns bei Ihnen.');
                 }
             });
-        }else{
-            ErrorMsg('Please Read Terms/Conditions & Mark chckbox checked! ');
+        } else {
+            ErrorMsg('Sie müssen mit den AGBs einverstanden sein.');
         }
     } else {
-        ErrorMsg('Please Fill Mandatory Fields');
+        ErrorMsg('Bitte füllen Sie alle notwendigen Felder aus.');
     }
 }
 
@@ -263,10 +268,17 @@ function SetPries(size) {
 var gesamtVal = 0;
 $(document).ready(function () {
 
-    if ($('#userId').val() != "") {
+    if ($('#userId').val() != "" || getCookie("fb_simplewash")) {
         $('#loadBtn').show();
         $('#loadBtn').click(function () {
-            if ($('#userdata').val() == "{}") {
+            if (getCookie("fb_simplewash")) {
+                var fbUserId = JSON.parse(getCookie("fb_simplewash")).authResponse.userID;
+                $.post("/fb_data", {fbID: fbUserId}, "json").success(function (data) {
+                   if(data !='')
+                    load(data);
+                });
+            }
+            else if ($('#userdata').val() == "{}") {
                 ErrorMsg("No Previous Data Available");
             }
             else {

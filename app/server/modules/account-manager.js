@@ -8,7 +8,7 @@ var moment = require('moment');
  */
 
 var dbName = process.env.DB_NAME || 'node-login';
-var dbHost = process.env.DB_HOST || 'localhost'
+var dbHost = process.env.DB_HOST || 'localhost';
 var dbPort = process.env.DB_PORT || 27017;
 
 var db = new MongoDB(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}), {w: 1});
@@ -32,9 +32,21 @@ db.open(function (e, d) {
 });
 
 var accounts = db.collection('accounts');
-var mydata = db.collection('userdata');
-/* login validation methods */
+var fbaccounts = db.collection('fbaccounts');
 
+exports.InsertFBData = function (fbData, callback) {
+    fbaccounts.findOne({fbID: fbData.fbID}, function (e, o) {
+        if (e) {
+            fbaccounts.insert(fbData, callback);
+        } else {
+            fbaccounts.save(fbData, callback);
+        }
+
+    });
+};
+exports.GetFBData = function (fbID, callback) {
+    fbaccounts.findOne({fbID: fbID}, callback);
+};
 exports.autoLogin = function (user, pass, callback) {
     accounts.findOne({user: user}, function (e, o) {
         if (o) {
@@ -105,7 +117,7 @@ exports.updateAccount = function (newData, callback) {
                     });
                 });
             }
-        }else{
+        } else {
             accounts.save(o, {safe: true}, function (e) {
                 if (e) callback(e);
                 else callback(null, o);

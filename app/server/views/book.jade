@@ -4,125 +4,14 @@ block content
 
     input(type='hidden', value= JSON.stringify(user.data))#userdata
     script(language='javascript', type='text/javascript', src='/js/book.js')
-    .box
-        .row
-            #progress1.progress
-                .progress-bar(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100')
-                span.progress-type Anleitung
-                span.progress-completed 0%
-        .row
-            .row.step
-                #div1.col-md-2.activestep(onclick="javascript: resetActive(event, 0, 'step-1');")
-                    span.fa.fa-star
-                    p Erster Schritt
-                .col-md-2(onclick="javascript: resetActive(event, 20, 'step-2');")
-                    span.fa.fa-star
-                    p Speicherfunktion
-                .col-md-2(onclick="javascript: resetActive(event, 40, 'step-3');")
-                    span.fa.fa-star
-                    p Ladefunktion
-                .col-md-2(onclick="javascript: resetActive(event, 60, 'step-4');")
-                    span.fa.fa-star
-                    p Besonderer Wunsch
-                .col-md-2(onclick="javascript: resetActive(event, 80, 'step-5');")
-                    span.fa.fa-star
-                    p Zahlungsart
-                #last.col-md-2(onclick="javascript: resetActive(event, 100, 'step-6');")
-                    span.fa.fa-star
-                    p Reinigungsvorgang
-        #step-1.row.setup-content.step.activeStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Die Verfügbarkeit überpüfen
-                    h4
-                        | Geben Sie als erstes Ihren Wohnort ein um zu überprüfen,
-                        br
-                        | ob unser Service auch in Ihrem Wohnort verfügbar ist.
-        #step-2.row.setup-content.step.hiddenStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Die Speicherfunktion
-                    h4
-                        | Als registrierter Benutzer können Sie ihre letzte Bestellung speichern,
-                        br
-                        | damit Sie das Formular nicht immer mit den selben Daten ausfüllen müssen.
-        #step-3.row.setup-content.step.hiddenStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Die Ladefunktion
-                    h4
-                        | Um die Daten, welche bei der letzten Bestellung gespeichert wurden
-                        br
-                        | wieder aufzurufen, müssen Sie sich einloggen.
-                        br
-                        | Anschließend öffnet sich automatisch ein Fenster,
-                        br
-                        | bei dem Sie gefragt werden, ob Sie die zuletzt gespeicherten Daten
-                        br
-                        | wieder aufrufen möchten. Bestätigen Sie diese mit "Ja".
-        #step-4.row.setup-content.step.hiddenStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Besondere Wünsche/Hinweise
-                    h4
-                        | Im Formular bieten wir Ihnen unter dem Punkt "Anmerkung"
-                        br
-                        | extra die Möglichkeit, dass Sie uns einen Text schreiben können,
-                        br
-                        | um auf gewisse Sachen hinzuweisen.
-        #step-5.row.setup-content.step.hiddenStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Zahlungsart
-                    h4
-                        | Die Zahlung findet vor Ort statt.
-                        br
-                        | Sie haben die Möglichkeit Bar, mit EC-Karte oder MasterCard/Visa/AmericanCard zu zahlen.
-        #step-6.row.setup-content.step.hiddenStepInfo
-            .col-xs-12
-                .col-md-12.well.text-center
-                    h1 Ablauf der Reinigung
-                    h4
-                        | Egal bei welchem Wetter werden wir zu Ihrem
-                        br
-                        | gewünschten Ort und Zeit ihr Auto wunschgemäß reinigen.
-
-    script(type='text/javascript').
-        function resetActive(event, percent, step) {
-            $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
-            $(".progress-completed").text(percent + "%");
-            $("div").each(function () {
-                if ($(this).hasClass("activestep")) {
-                    $(this).removeClass("activestep");
-                }
-            });
-            if (event.target.className == "col-md-2") {
-                $(event.target).addClass("activestep");
-            }
-            else {
-                $(event.target.parentNode).addClass("activestep");
-            }
-            hideSteps();
-            showCurrentStepInfo(step);
-        }
-        function hideSteps() {
-            $("div").each(function () {
-                if ($(this).hasClass("activeStepInfo")) {
-                    $(this).removeClass("activeStepInfo");
-                    $(this).addClass("hiddenStepInfo");
-                }
-            });
-        }
-        function showCurrentStepInfo(step) {
-            var id = "#" + step;
-            $(id).addClass("activeStepInfo");
-        }
+    .box(style='padding-right:2%;')
 
     div
-        div(style='background-color:#f0f1f3')
+    .bgcolorIndex
+        div
             .row.book
                 .col-md-13
-                    h1 Fahrzeugtyp und Optionenauswahl
+                    h1 &#9312; Fahrzeugtyp und Optionenauswahl
                     button#loadBtn(style='display:none;').btn-primary Load Formular
             .rowData(style='margin-left:40px;')
                 .row.book
@@ -940,7 +829,7 @@ block content
                             li
                                 h3
                                     strong
-                                        | Gesamt:
+                                        | Gesamtpreis Inkl. MwSt.:
                                         p#_gesamt(value='0') 0.00€
                 br
                 br
@@ -961,10 +850,10 @@ block content
                 br
                 br
                 br
-        hr
+        hr(style='border:2px; background-color:black')
         .row.book
             .col-md-12
-                h1 Einsatzort und Zeit
+                h1 &#9313; Einsatzort und Zeit
             .col-md-3
                 ul
                     li.dick Ort der Reinigung*
@@ -1004,6 +893,7 @@ block content
             .col-md-4
                 ul.p-x-5
                     li.dick Ist ein regengeschützter Abstellplatz vorhanden?*
+                    |(Nur bei starkem Regen nötig)
                     li
                         input(type='radio', name='abstellplatz', value='ja', required='')
                         | Ja
@@ -1035,11 +925,11 @@ block content
                             option 14:00 - 17:00 Uhr
                             option 15:00 - 18:00 Uhr
                             option 16:00 - 19:00 Uhr
-        hr
-        div(style='background-color:#f0f1f3')
+        hr(style='border:2px; background-color:black')
+        div
             .row.book
                 .col-md-12
-                    h1 Rechnungsadresse
+                    h1 &#9314; Rechnungsadresse
                 .col-md-3
                     ul
                         li.dick Vorname*
@@ -1071,15 +961,18 @@ block content
                                 option Vor Ort mit EC/MasterCard/Visa/AmericanCard
                         li(style='margin-top:40px')
                             | Nach Ihrer Bestellung wird innerhalb von 15-30 min. eine Rechnung an Ihre Email versendet.
+                            br
+                            br
                         li
                             input#_agb(type='checkbox', name='haveTo', value='ja', required='')
                             strong Ja
-                            | , ich akzeptiere die AGBs
+                            | , ich akzeptiere die AGBs und werde 30 Minuten vor der Buchungszeit telefonisch erreichbar sein.
                         li
                             | Um zu den AGBs zu gelangen,
                             a(href='/about' target="_blank") klick hier.
                         li(style='margin-top:20px')
                             input(type='button', value='kostenpflichtig buchen', onclick='fetch()')
                 .col-md-5(style='margin-top:50px')
-                    h2 Gesamtpreis beträgt:
+                    h2 Gesamtpreis Inkl. MwSt. beträgt:
                     h2.outputPrice 0.00€
+

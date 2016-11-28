@@ -622,7 +622,7 @@ footer {
   color: #f0f1f3;
   background: rgb(8,55,80);
   text-align: center;
-  height:35px;
+  height:20px;
 }
 
 .impressum>p{
@@ -731,10 +731,76 @@ ul{
   font-size: 40px;
 }
 .book{
+
   margin-left:12%;
   margin-right:8%;
 }
-.box{
-  margin:5%;
+.bgcolorIndex{
+  background-color:#EAF1F1
+}
+
+.boxIndex{
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:5%;
+  padding-bottom:5%;
+
+
+}
+.footerFormat{
+padding-left: 30%;
+padding-right: 30%;
+padding-top: 1%;
+}
+.dick{
+  font-weight:bold;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* popup on load*/
+#mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 440px;
+  height: 200px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#boxes #dialog {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  background-color: #ffffff;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
 }
 

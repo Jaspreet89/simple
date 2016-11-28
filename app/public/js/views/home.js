@@ -28,8 +28,8 @@ $(document).ready(function(){
 	$('#name-tf').focus();
 
 // customize the account settings form //
-	$('#account-form h2').text('Account Settings');
-	$('#account-form #sub1').text('Here are the current settings for your account.');
+	$('#account-form h2').text('Konto-Einstellungen');
+	$('#account-form #sub1').text('Ihre momentanen Einstellungen zu diesem Konto.');
 	$('#user-tf').attr('disabled', 'disabled');
 	$('#account-form-btn1').html('Delete');
 	$('#account-form-btn1').addClass('btn-danger');
@@ -38,8 +38,8 @@ $(document).ready(function(){
 // setup the confirm window that displays when the user chooses to delete their account //
 
 	$('.modal-confirm').modal({ show : false, keyboard : true, backdrop : true });
-	$('.modal-confirm .modal-header h4').text('Delete Account');
-	$('.modal-confirm .modal-body p').html('Are you sure you want to delete your account?');
+	$('.modal-confirm .modal-header h4').text('Konto löschen');
+	$('.modal-confirm .modal-body p').html('Möchten Sie sicher ihr Konto löschen?');
 	$('.modal-confirm .cancel').html('Cancel');
 	$('.modal-confirm .submit').html('Delete');
 	$('.modal-confirm .submit').addClass('btn-danger');

@@ -50,30 +50,4 @@ block content
                 .actions
                     input.button(name='commit', value='Anfrage absenden', type='submit')
         .col-sm-6
-            script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
-            div(style='overflow:hidden;')
-                #gmap_canvas(style='min-height:550px;margin-top:5%;')
-                style.
-                    #gmap_canvas img {
-                        max-width: none !important;
-                        background: none !important;
-
-                    }
-            script(type='text/javascript').
-                function init_map() {
-                    var myOptions = {
-                        zoom: 12,
-                        center: new google.maps.LatLng(50.00882, 8.20846000000006),
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-                    marker = new google.maps.Marker({
-                        map: map,
-                        position: new google.maps.LatLng(50.00882, 8.20846000000006)
-                    });
-                    infowindow = new google.maps.InfoWindow({content: '<strong></strong><br>Elsa-Brändström-Straße 51B, Gonsenheim 55124 Mainz Germany<br> Frankfurt am Main<br>'});
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.open(map, marker);
-                    });
-                    infowindow.open(map, marker);
-                }google.maps.event.addDomListener(window, 'load', init_map);
+            iframe(style='border: 0;', src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2563.133749841935!2d8.124426590584918!3d50.027589567950244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd952f26b7621f%3A0x641ddfb75673ba48!2sRohrbergstra%C3%9Fe+3%2C+65343+Eltville+am+Rhein!5e0!3m2!1sde!2sde!4v1455275911985', frameborder='0', width='600', height='450')
