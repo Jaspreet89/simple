@@ -1,8 +1,49 @@
-var Spreis = ['19.99', '24.99', '24.99', '29.99', '69.99', '12.99', '199.99'];
-var Mpreis = ['28.99', '33.99', '33.99', '39.99', '69.99', '14.99', '279.99'];
-var Lpreis = ['32.99', '36.99', '36.99', '49.99', '79.99', '16.99', '356.99'];
-var XLpreis = ['36.99', '42.99', '42.99', '59.99', '79.99', '18.99', '399.99'];
-var XXLpreis = ['40.99', '46.99', '46.99', '59.99', '79.99', '19.99', '449.99'];
+var Spreis = ['19.99', '24.99', '69.99', '29.99', '34.99', '12.99', '124.99'];
+var Mpreis = ['28.99', '33.99', '79.99', '39.99', '34.99', '14.99', '154.99'];
+var Lpreis = ['32.99', '36.99', '79.99', '39.99', '40.99', '16.99', '184.99'];
+var XLpreis = ['36.99', '42.99', '89.99', '39.99', '40.99', '18.99', '199.99'];
+var XXLpreis = ['40.99', '46.99', '99.99', '49.99', '45.99', '19.99', '224.99'];
+$(document).ready(function() {
+	$(".adressOfStation").hide();
+    $('input[type=radio][name=station]').change(function() {
+        if (this.value == 'S') {
+        $('.station').hide();
+        $('.city').hide();
+		$(".adressOfStation").show();
+        }
+        else if (this.value == 'D') {
+            $('.station').show();
+            $('.city').show();
+			$(".adressOfStation").hide();
+        }
+    });
+});
+		function ReachabilityCalculator() {
+		var city = $('.city').val();
+		var origin = 'Rohrbergstraße 3, 65343 Eltville am Rhein';
+		var destination = city + ' Germany';
+		var service = new google.maps.DistanceMatrixService();
+		service.getDistanceMatrix(
+		{
+		origins: [origin],
+		destinations: [destination],
+		travelMode: google.maps.TravelMode.DRIVING,
+		unitSystem: google.maps.UnitSystem.METRIC
+		}, function (response, status) {
+		console.log(response);
+		var distance = response.rows[0].elements[0].distance;
+		if (status == 'OK' && distance != undefined) {
+		if (parseFloat(distance.text) <= 150) {
+		SuccessMsg('Wir sind in Ihrem Ort verfügbar.');
+		} else if (parseFloat(response.rows[0].elements[0].distance.text) > 150) {
+		ErrorMsg('Leider sind wir in Ihrem Ort nicht verfügbar.');
+		}
+		} else {
+		ErrorMsg('Leider haben wir Ihre Adresse nicht gefuden. Bitte erneut versuchen.');
+		}
+		});
+		};
+
 function hideSubModels() {
     $('.submodel').hide();
 }
@@ -70,11 +111,13 @@ function endprice() {
     ;
 
     $('#_gesamt').text((gesamtVal).toFixed(2) + "€");
-    $('.outputPrice').text((gesamtVal).toFixed(2) + "€");
+	var gesamtMitTax = gesamtVal/100*119;
+    $('.outputPrice').text((gesamtMitTax).toFixed(2) + "€");
 }
 
 var UserData = {};
 function validateData(data) {
+    console.log(data);
     var returnvalue = true;
     data.forEach(function (el) {
         Object.keys(el).forEach(function (property) {
@@ -86,15 +129,22 @@ function validateData(data) {
     return returnvalue;
 }
 function fetch() {
+   var station= $('input:radio[name=station]:checked').val();
+    if(station=='S'){
+        UserData.station='Simple-Wash Station' ;
+    }else{
+        UserData.station=$("#ort_station").val()+','+$("#plz_station").val()+','+ $("#strasse_station").val()+','+ $("#hausnr_station").val();
+    }
+
     UserData.brand = $("#brand option:selected").text();
-    UserData.model = $(".modell ._" + UserData.brand + " option:selected").text();
+    UserData.model = $(".modell ." + $("#brand option:selected").val() + " option:selected").text();
 
     UserData.options = [];
     $('input[name="anzeige"]:checked').each(function () {
         var klammer = $(this).parent().find('label').text().indexOf("(") - 1;
         UserData.options.push($(this).parent().find('label').text().substr(0, klammer));
     });
-    UserData.preis = $("#_gesamt").text();
+    UserData.preis = $(".outputPrice").text();
     UserData.farbe = $("#farbe").val();
     UserData.kennzeichen = $("#kennzeichen").val();
     UserData.einsatzort = $("#ort").val();

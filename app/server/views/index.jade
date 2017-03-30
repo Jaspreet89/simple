@@ -1,125 +1,130 @@
 extends layout
 
 block content
-    #map
-    .content
-        .homepage
-            .video-container(style="background-image:url('/document/Logo.png');background-size:cover;background-repeat:no-repeat;")
-                .title-container
-                    .headline
-                        h1 Simple Wash
-                    .description
-                        #section_main.js_section_main.section
-
-                            #subtitle.bigger Professionelle Autoreinigung vor Ort
-                            #address_fields.field
-                                input#street(name='street', data-geo='route', placeholder='Straße', type='text', required='')
-                                input#house(name='house', data-geo='street_number', placeholder='Nr.', type='text', required='')
-                                input#zip(name='zip', data-geo='postal_code', placeholder='Postleitzahl', type='text', required='')
-                                input#city(name='city', data-geo='locality', placeholder='Ort', type='text', required='')
-                        a#check_availability.thick.button(href='javascript:ReachabilityCalculator();') Jetzt Verfügbarkeit prüfen
-
-
-    .bgcolorIndex
-        .rowData.boxIndex
-          .text-center
-            h1 Willkommen bei Simple-Wash Ihrer professionelle Autopflege
-            br
-            br
-          p
-            | An einer regelmäßigen Autoreinigung kommt leider früher oder später kein Fahrzeugbesitzer vorbei. Zu jeder Jahreszeit verschmutzen beispielsweise Straßendreck, Blätter, Vögel und Insekten den Lack Ihres Fahrzeuges von außen und auch bei der alltäglichen Nutzung Ihres Autos verschmutz mit der Zeit auch der Fahrzeuginnenraum unvermeidlich. Hier kommen unsere Leistungen ins Spiel.
-          p
-            | Wir bieten Ihnen die fachgerechte Außen- und Innenreinigung Ihres Fahrzeuges zu einem fairen Preis. Unser Service bietet Ihnen die Möglichkeit, unsere Einzelleistungen individuell nach Ihren Wünschen zu kombinieren oder auch gleich eines unserer Komplett-Pakete zu wählen. Wir sind eine Stationäre sowie eine mobile Fahrzeugaufbereitung und können dies auch bei Ihnen vor Ort durchführen. Klicken Sie einfach auf unsere LEISTUNGEN und erfahren Sie mehr.
-          p Vorteile:
-          p Sie möchten Ihr Fahrzeug verkaufen ?
-          p
-            | Eine Aufbereitung erzielt einen höheren Verkaufspreis, und der neue Käufer fühlt sich gleich wohl in seinem neuen Fahrzeug. Unsere Erfahrungswerte zeigen das eine professionelle Fahrzeugaufbereitung zu deutlichen höheren Verkaufspreisen führt.
-
-
-block scripts
-    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
-
-    script.
-        $(document).ready(function () {
-            $('.homepage').height($(window).height());
-            $('.homepage').width($(window).width());
-        });
-
-
-        var directionsService, directionsDisplay;
-        function initMap() {
-            directionsService = new google.maps.DirectionsService;
-            directionsDisplay = new google.maps.DirectionsRenderer;
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
-                center: {lat: 50, lng: 8}
-            });
-            directionsDisplay.setMap(map);
-        }
-        function calculateAndDisplayRoute(origin, destinaion) {
-            directionsService.route({
-                origin: origin,
-                destination: destinaion,
-                travelMode: google.maps.TravelMode.DRIVING
-            }, function (response, status) {
-                if (status === google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
-        }
-        var flag = true;
-        function ReachabilityCalculator() {
-            var street = $('#street').val(),
-                    housenumber = $('#house').val(),
-                    zip = $('#zip').val(),
-                    city = $('#city').val();
-            var origin = 'Rohrbergstraße 3, 65343 Eltville am Rhein';
-            var destination = street + ' ' + housenumber + ' ' + zip + ' ' + city + ' Germany';
-            var service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(
-                    {
-                        origins: [origin],
-                        destinations: [destination],
-                        travelMode: google.maps.TravelMode.DRIVING,
-                        unitSystem: google.maps.UnitSystem.METRIC
-                    }, function (response, status) {
-                        console.log(response);
-                        var distance = response.rows[0].elements[0].distance;
-                        if (status == 'OK' && distance != undefined) {
-                            if (parseFloat(distance.text) <= 150) {
-                                SuccessMsg('Wir sind in Ihrem Ort verfügbar.');
-                                if (flag) {
-                                    flag = false;
-                                    initMap();
-                                }
-                                calculateAndDisplayRoute(origin, destination);
-                                var dynamicDialog = $('#map');
-                                dynamicDialog.dialog({
-                                    title: "Route",
-                                    modal: true,
-                                    height: 500,
-                                    width: 800,
-                                    open: function () {
-                                        $('.ui-dialog').css('z-index', 112);
-                                        $('.ui-dialog-buttonset>button').css({'background': 'rgb(8,55,80)', 'color': 'white'});
-                                        $('.ui-dialog-titlebar').css({'background': 'rgb(8,55,80)', 'color': 'white'});
-                                    },
-                                    buttons: {
-                                        "Jetzt buchen": function () {
-                                            window.location = '/book';
-                                        }
-                                    }
-                                });
-                            } else if (parseFloat(response.rows[0].elements[0].distance.text) > 150) {
-                                ErrorMsg('Leider sind wir in Ihrem Ort nicht verfügbar.');
-                            }
-                        } else {
-                            ErrorMsg('Leider haben wir Ihre Adresse nicht gefuden. Bitte erneut versuchen.');
-                        }
-                    });
-        };
-
-
-
+	#map
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js')
+	.laptop.content
+		.homepage
+			.video-container(style="background-image:url('/document/Logo.png');background-size:cover;background-repeat:no-repeat;height:100% !important;position: absolute;")
+				.title-container
+					h1.headline(style='color:black;') Simple Wash
+					.description
+						.section_main.js_section_main.section
+							.subtitle.bigger(style='color:black;') Professionelle Autoreinigung vor Ort
+							.address_fields.field
+								input.street(name='street', data-geo='route', placeholder='Straße', type='text', required='')
+								input.house(name='house', data-geo='street_number', placeholder='Nr.', type='text', required='')
+								input.zip(name='zip', data-geo='postal_code', placeholder='Postleitzahl', type='text', required='')
+								input.city(name='city', data-geo='locality', placeholder='Ort', type='text', required='')
+						a.check_availability.thick.button(href='javascript:ReachabilityCalculator();') Jetzt Verfügbarkeit prüfen
+	.mobile
+		.video-container(style="background-image:url('/document/Logo.png');background-repeat:no-repeat;min-height:700px !important;position: relative;")
+			.title-container
+				.headline
+					h1 Simple Wash
+				.description
+					.section_main.js_section_main.section
+						.subtitle.bigger Professionelle Autoreinigung vor Ort
+						.address_fields.field
+							input.street(name='street', data-geo='route', placeholder='Straße', type='text', required='')
+							input.house(name='house', data-geo='street_number', placeholder='Nr.', type='text', required='')
+							input.zip(name='zip', data-geo='postal_code', placeholder='Postleitzahl', type='text', required='')
+							input.city(name='city', data-geo='locality', placeholder='Ort', type='text', required='')
+					a.check_availability.thick.button(href='javascript:ReachabilityCalculator();') Jetzt Verfügbarkeit prüfen
+	.bgcolorIndex
+		.rowData.boxIndex
+			.text-center
+				h1 Willkommen bei Simple-Wash Ihrer professionelle Autopflege
+				br
+				br
+			p
+				| An einer regelmäßigen Autoreinigung kommt leider früher oder später kein Fahrzeugbesitzer vorbei. Zu jeder Jahreszeit verschmutzen beispielsweise Straßendreck, Blätter, Vögel und Insekten den Lack Ihres Fahrzeuges von außen und auch bei der alltäglichen Nutzung Ihres Autos verschmutz mit der Zeit auch der Fahrzeuginnenraum unvermeidlich. Hier kommen unsere Leistungen ins Spiel.
+			p
+				| Wir bieten Ihnen die fachgerechte Außen- und Innenreinigung Ihres Fahrzeuges zu einem fairen Preis. Unser Service bietet Ihnen die Möglichkeit, unsere Einzelleistungen individuell nach Ihren Wünschen zu kombinieren oder auch gleich eines unserer Komplett-Pakete zu wählen. Wir sind eine Stationäre sowie eine mobile Fahrzeugaufbereitung und können dies auch bei Ihnen vor Ort durchführen. Klicken Sie einfach auf unsere LEISTUNGEN und erfahren Sie mehr.
+			p Vorteile:
+			p Sie möchten Ihr Fahrzeug verkaufen ?
+			p
+				| Eine Aufbereitung erzielt einen höheren Verkaufspreis, und der neue Käufer fühlt sich gleich wohl in seinem neuen Fahrzeug. Unsere Erfahrungswerte zeigen das eine professionelle Fahrzeugaufbereitung zu deutlichen höheren Verkaufspreisen führt.
+	script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
+	script.
+		$(document).ready(function () {
+		$('.homepage').height($(window).height());
+		$('.homepage').width($(window).width());
+		});
+		var directionsService, directionsDisplay;
+		function initMap() {
+		directionsService = new google.maps.DirectionsService;
+		directionsDisplay = new google.maps.DirectionsRenderer;
+		var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 7,
+		center: {lat: 50, lng: 8}
+		});
+		directionsDisplay.setMap(map);
+		}
+		function calculateAndDisplayRoute(origin, destinaion) {
+		directionsService.route({
+		origin: origin,
+		destination: destinaion,
+		travelMode: google.maps.TravelMode.DRIVING
+		}, function (response, status) {
+		if (status === google.maps.DirectionsStatus.OK) {
+		directionsDisplay.setDirections(response);
+		} else {
+		window.alert('Directions request failed due to ' + status);
+		}
+		});
+		}
+		var flag = true;
+		function ReachabilityCalculator() {
+		var street = $('.street').val(),
+		housenumber = $('.house').val(),
+		zip = $('.zip').val(),
+		city = $('.city').val();
+		var origin = 'Rohrbergstraße 3, 65343 Eltville am Rhein';
+		var destination = street + ' ' + housenumber + ' ' + zip + ' ' + city + ' Germany';
+		var service = new google.maps.DistanceMatrixService();
+		service.getDistanceMatrix(
+		{
+		origins: [origin],
+		destinations: [destination],
+		travelMode: google.maps.TravelMode.DRIVING,
+		unitSystem: google.maps.UnitSystem.METRIC
+		}, function (response, status) {
+		console.log(response);
+		var distance = response.rows[0].elements[0].distance;
+		if (status == 'OK' && distance != undefined) {
+		if (parseFloat(distance.text) <= 150) {
+		SuccessMsg('Wir sind in Ihrem Ort verfügbar.');
+		if (flag) {
+		flag = false;
+		initMap();
+		}
+		calculateAndDisplayRoute(origin, destination);
+		var dynamicDialog = $('#map');
+		dynamicDialog.dialog({
+		title: "Route",
+		modal: true,
+		height: 500,
+		width: 800,
+		open: function () {
+		$('.ui-dialog').css('z-index', 112);
+		$('.ui-dialog-buttonset>button').css({
+		'background': 'rgb(8,55,80)',
+		'color': 'white'
+		});
+		$('.ui-dialog-titlebar').css({'background': 'rgb(8,55,80)', 'color': 'white'});
+		},
+		buttons: {
+		"Jetzt buchen": function () {
+		window.location = '/book';
+		}
+		}
+		});
+		} else if (parseFloat(response.rows[0].elements[0].distance.text) > 150) {
+		ErrorMsg('Leider sind wir in Ihrem Ort nicht verfügbar.');
+		}
+		} else {
+		ErrorMsg('Leider haben wir Ihre Adresse nicht gefuden. Bitte erneut versuchen.');
+		}
+		});
+		};

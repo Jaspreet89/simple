@@ -4,14 +4,34 @@ block content
 
     input(type='hidden', value= JSON.stringify(user.data))#userdata
     script(language='javascript', type='text/javascript', src='/js/book.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD0WWswO0v-1wB1rpc9imn0ksRZeNX8Kmc')
     .box(style='padding-right:2%;')
 
     div
     .bgcolorIndex
         div
+            .row.book 
+                .col-md-13
+                    h1 &#9312; Standort der Reinigung
+                .col-md-12
+                    ul
+                        li.dick Am Standort meines Fahrzeuges
+                        li
+                            input(type='radio', name='station', required='',value='D',checked='checked')
+                        li
+                            input.city(name='city', data-geo='locality', placeholder='Ort', type='text', required='',onfocusout='ReachabilityCalculator()')
+
+                .col-md-12
+                    ul
+                        li.dick Simple-Wash Station
+                        li
+                            input(type='radio', name='station', required='',value='S')
+                        li.adressOfStation Simple-Wash, Am Hofgut 1, 55268 Nieder-Olm	
+        hr(style='border:2px; background-color:black')
+        div
             .row.book
                 .col-md-13
-                    h1 &#9312; Fahrzeugtyp und Optionenauswahl
+                    h1 &#9313; Fahrzeugtyp und Optionenauswahl
                     button#loadBtn(style='display:none;').btn-primary Load Formular
             .rowData(style='margin-left:40px;')
                 .row.book
@@ -794,7 +814,7 @@ block content
                             li
                                 input#a(name='anzeige', type='checkbox', value='Intensiv-Außenreinigung per Hand')
                                 label(for='a')
-                                    | Intensiv-Außenreinigung per Hand (€)
+                                    | Intensiv-Außenreinigung (€)
                                     p#_a
                             li
                                 input#b(name='anzeige', type='checkbox', value='Intensiv-Innenreinigung')
@@ -829,7 +849,7 @@ block content
                             li
                                 h3
                                     strong
-                                        | Gesamtpreis Inkl. MwSt.:
+                                        | Gesamtpreis:
                                         p#_gesamt(value='0') 0.00€
                 br
                 br
@@ -851,85 +871,81 @@ block content
                 br
                 br
         hr(style='border:2px; background-color:black')
-        .row.book
-            .col-md-12
-                h1 &#9313; Einsatzort und Zeit
-            .col-md-3
-                ul
-                    li.dick Ort der Reinigung*
-                    li
-                        input#ort(type='text', name='ort', required='')
-            .col-md-3
-                ul
-                    li.dick PLZ*
-                    li
-                        input#plz(type='text', name='plz', required='')
-        .row.book
-            .col-md-3
-                ul
-                    li.dick Straße*
-                    li
-                        input#strasse(type='text', name='strasse', required='')
-            .col-md-3
-                ul
-                    li.dick Hausnummer*
-                    li
-                        input#hausnr(type='text', name='hausnr', required='')
-            .col-md-3
-                ul
-                    li.dick Telefonnummer*
-                    li
-                        input#telefon(type='text', name='telefon', required='')
-        .row.book
-            .col-md-8
-                ul
-                    li.dick Anmerkung
-                    li
-                        textarea#anmerkung(name='anmerkung', placeholder='Irgendwelche speziellen Wünsche?', cols='60', rows='10')
-            br
-            br
-            br
-            br
-            .col-md-4
-                ul.p-x-5
-                    li.dick Ist ein regengeschützter Abstellplatz vorhanden?*
-                    |(Nur bei starkem Regen nötig)
-                    li
-                        input(type='radio', name='abstellplatz', value='ja', required='')
-                        | Ja
-                    li
-                        input(type='radio', name='abstellplatz', value='nein')
-                        | Nein
-            br
-            br
-            br
-            br
-            br
-            .col-md-2
-                ul
-                    li.dick Datum*
-                    li
-                        input#datepicker(type='text', required='')
-            .col-md-1
-                ul
-                    li.dick Uhrzeit:*
-                    li
-                        select#zeit(required='')
-                            option 07:00 - 10:00 Uhr
-                            option 08:00 - 11:00 Uhr
-                            option 09:00 - 12:00 Uhr
-                            option 10:00 - 13:00 Uhr
-                            option 11:00 - 14:00 Uhr
-                            option 12:00 - 15:00 Uhr
-                            option 13:00 - 16:00 Uhr
-                            option 14:00 - 17:00 Uhr
-                            option 15:00 - 18:00 Uhr
-                            option 16:00 - 19:00 Uhr
+        div.station
+            .row.book
+                .col-md-12
+                    h1 &#9314; Einsatzort
+                .col-md-3
+                    ul
+                        li.dick Ort der Reinigung*
+                        li
+                            input#ort_station(type='text', name='ort', required='')
+                .col-md-3
+                    ul
+                        li.dick PLZ*
+                        li
+                            input#plz_station(type='text', name='plz', required='')
+            .row.book
+                .col-md-3
+                    ul
+                        li.dick Straße*
+                        li
+                            input#strasse_station(type='text', name='strasse', required='')
+                .col-md-3
+                    ul
+                        li.dick Hausnummer*
+                        li
+                            input#hausnr_station(type='text', name='hausnr', required='')
+            .row.book
+                .col-md-8
+                    ul
+                        li.dick Anmerkung
+                        li
+                            textarea#anmerkung(name='anmerkung', placeholder='Irgendwelche speziellen Wünsche?', cols='60', rows='10')
+                br
+                br
+                br
+                br
+                .col-md-4
+                    ul.p-x-5
+                        li.dick Ist ein regengeschützter Abstellplatz vorhanden?*
+                        |(Nur bei starkem Regen nötig)
+                        li
+                            input(type='radio', name='abstellplatz', value='ja', required='')
+                            | Ja
+                        li
+                            input(type='radio', name='abstellplatz', value='nein')
+                            | Nein
         hr(style='border:2px; background-color:black')
         div
             .row.book
                 .col-md-12
-                    h1 &#9314; Rechnungsadresse
+                    h1 &#9315; Datum und Uhrzeit
+                .col-md-3
+                    ul
+                        li.dick Datum*
+                        li
+                            input#datepicker(type='text', required='')
+                .col-md-3
+                    ul
+                        li.dick Uhrzeit:*
+                        li
+                            select#zeit(required='')
+                                option 07:00 - 10:00 Uhr
+                                option 08:00 - 11:00 Uhr
+                                option 09:00 - 12:00 Uhr
+                                option 10:00 - 13:00 Uhr
+                                option 11:00 - 14:00 Uhr
+                                option 12:00 - 15:00 Uhr
+                                option 13:00 - 16:00 Uhr
+                                option 14:00 - 17:00 Uhr
+                                option 15:00 - 18:00 Uhr
+                                option 16:00 - 19:00 Uhr
+        hr(style='border:2px; background-color:black')
+        div
+            .row.book
+                .col-md-12
+                    h1 &#9316; Rechnungsadresse
                 .col-md-3
                     ul
                         li.dick Vorname*
@@ -950,6 +966,32 @@ block content
                         li.dick E-Mail*
                         li
                             input#email(type='text', name='email', required='')
+                .col-md-3
+                    ul
+                        li.dick Ort*
+                        li
+                            input#ort(type='text', name='ort', required='')
+                .col-md-3
+                    ul
+                        li.dick PLZ*
+                        li
+                            input#plz(type='text', name='plz', required='')
+                .col-md-13
+                    .col-md-3
+                        ul
+                            li.dick Straße*
+                            li
+                                input#strasse(type='text', name='strasse', required='')
+                    .col-md-3
+                        ul
+                            li.dick Hausnummer*
+                            li
+                                input#hausnr(type='text', name='hausnr', required='')
+                    .col-md-3
+                        ul
+                            li.dick Telefonnummer*
+                            li
+                                input#telefon(type='text', name='telefon', required='')
                 .col-md-12
                 .col-md-7(style='margin-top:50px')
                     ul
@@ -957,8 +999,7 @@ block content
                         li
                             select#zahlungsart(required='')
                                 option Bar vor Ort
-                                option PayPal
-                                option Vor Ort mit EC/MasterCard/Visa/AmericanCard
+                                option EC-Karte vor Ort
                         li(style='margin-top:40px')
                             | Nach Ihrer Bestellung wird innerhalb von 15-30 min. eine Rechnung an Ihre Email versendet.
                             br

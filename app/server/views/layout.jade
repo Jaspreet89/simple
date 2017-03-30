@@ -11,6 +11,7 @@ html(lang='en')
         script(src='/js/notify.js')
         link(rel='stylesheet', href='/css/style.css')
         script.
+
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -76,6 +77,12 @@ html(lang='en')
                 });
             }
             $(document).ready(function () {
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    $('.laptop').remove();
+                }
+                else{
+                    $('.mobile').remove();
+                }
               // $('#maincontainer').css("min-height", $(window).height() - 155);
                     if(!getCookie('simple_visit')){
                         setCookie('simple_visit',true,360);
@@ -171,7 +178,7 @@ html(lang='en')
                 #hotline.item.border
                     .small.comment Buchungs- und Servicehotline:
                     .bigger.bold.hotline.visible
-                        a(href='#') 0173/7682942
+                        a(href='#') 0152 34544586
                         .small.comment|(mit WhatsApp)
 
         #header
@@ -210,7 +217,7 @@ html(lang='en')
 
             #boxes
                 #dialog.window
-                    | Gutscheinaktion bis zum 01.02.2017 <br>
+                    | Gutscheinaktion bis zum 01.05.2017 <br>
                     | <br><br> Bei Abgabe des Gutscheins vor Ort, erhalten Sie einen Preisnachlass von 20%.
                     | <br> Zum Gutscheincode: <br><br>
                     | <button class="btn btn-primary" onclick="window.open('/document/gutschein.pdf')">Gutscheinformular</button>
@@ -242,6 +249,7 @@ html(lang='en')
             a(href='/about', style='float:left;margin-left:1%;color: white') AGB
           #payment(style="margin-left:35%")
                span.title.left.white.upcase.bold
+                |Zahlungsarten:
                 img(src='https://d22v1o7se0gs6x.cloudfront.net/assets/visa-955a728dd247a3a157244cf7ec8224d1597279a7e54ae8b83b6ddb810eee7116.svg', width='100', height='26')
                 img(src='https://d22v1o7se0gs6x.cloudfront.net/assets/mastercard-a158a968b1bf8286134921476b42a7133f63d013c760b3a0791dad5747a99c17.svg', width='100', height='33')
                 img(src='https://d22v1o7se0gs6x.cloudfront.net/assets/amex-9101dbd3d85df891a11942b70a82e2f87077029fb1c16b854452fad25131377d.svg', width='100', height='22')

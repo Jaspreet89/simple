@@ -3,10 +3,10 @@ module.exports = EM;
 
 EM.server = require("emailjs/email").server.connect(
     {
-        host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-        user: process.env.EMAIL_USER || 'info.simplewash@gmail.com',
-        password: process.env.EMAIL_PASS || 'simplewash2016',
-        ssl: true
+        host 	    : process.env.EMAIL_HOST || 'smtp.gmail.com',
+        user 	    : process.env.EMAIL_USER || 'your-email-address@gmail.com',
+        password    : process.env.EMAIL_PASS || '1234',
+        ssl		    : true
     });
 
 EM.dispatchResetPasswordLink = function (account, req, callback) {
@@ -21,7 +21,7 @@ EM.dispatchResetPasswordLink = function (account, req, callback) {
 EM.dispatchkontaktMessage = function (kontaktMessage, callback) {
     EM.server.send({
         from: process.env.EMAIL_FROM || 'Simple Wash <info.simplewash@gmail.com>',
-        to: 'jaashy.singh@gmail.com',
+        to: 'info.simplewash@gmail.com',
         subject: 'Kontakt',
         text: '',
         attachment: EM.composekontaktEmail(kontaktMessage)
@@ -95,11 +95,11 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.moveDown(0.1);
     myDoc.text("Reda Iddouch");
     myDoc.moveDown(0.1);
-    myDoc.text("+49 (0)173 76 82 942");
+    myDoc.text("+49 (0)152 345 445 86");
     myDoc.moveDown(0.1);
-    myDoc.text("Elsa-Brändström-Str. 51b");
+    myDoc.text("Am Hofgut 1");
     myDoc.moveDown(0.1);
-    myDoc.text("65343 Eltville am Rhein");
+    myDoc.text("55268 Nieder-Olm");
     myDoc.text("Str. Nr. : 2726/075/64375");
     myDoc.moveDown(3);
     myDoc.text(req.body.vorname+ " "+req.body.nachname);
@@ -117,6 +117,7 @@ EM.createPDF=function(req,pdf,fs){
     myDoc.text("Rechnung");
     myDoc.text(getDateTime(),{align:'right'});
     myDoc.moveDown(2);
+	myDoc.text("Station: " + req.body.station);
     myDoc.text("Marke: " + req.body.brand);
     myDoc.text("Modell: "+req.body.model);
     myDoc.text("Farbe: "+req.body.farbe);
