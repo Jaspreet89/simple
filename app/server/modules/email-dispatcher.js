@@ -4,8 +4,8 @@ module.exports = EM;
 EM.server = require("emailjs/email").server.connect(
     {
         host 	    : process.env.EMAIL_HOST || 'smtp.gmail.com',
-        user 	    : process.env.EMAIL_USER || 'info.simplewash@gmail.com',
-        password    : process.env.EMAIL_PASS || 'simplewash2016',
+        user 	    : process.env.EMAIL_USER || 'jaashy.singh@gmail.com',
+        password    : process.env.EMAIL_PASS || 'Jass1234$#@!',
         ssl		    : true
     });
 
