@@ -5,7 +5,7 @@ EM.server = require("emailjs/email").server.connect(
     {
         host 	    : process.env.EMAIL_HOST || 'smtp.gmail.com',
         user 	    : process.env.EMAIL_USER || 'jaashy.singh@gmail.com',
-        password    : process.env.EMAIL_PASS || 'Jass1234$#@!',
+        password    : process.env.EMAIL_PASS || 'azsxdc',
         ssl		    : true
     });
 
